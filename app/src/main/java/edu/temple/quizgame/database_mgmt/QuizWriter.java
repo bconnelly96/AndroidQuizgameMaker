@@ -86,7 +86,7 @@ public class QuizWriter {
 
     /* Removes a question from specified quiz */
     public void rmvQuestion(int question_num, int quiz_id) throws IOException {
-
+    /*
         File inputFile = new File("test.txt");
         File tempFile = new File("myTempFile.txt");
 
@@ -106,7 +106,7 @@ public class QuizWriter {
         reader.close();
         boolean successful = tempFile.renameTo(inputFile);
 
-
+    */
     }
 
     /* Adds a line of text to a file */

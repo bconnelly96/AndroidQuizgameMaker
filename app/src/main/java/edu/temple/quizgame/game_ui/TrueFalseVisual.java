@@ -2,24 +2,22 @@ package edu.temple.quizgame.game_ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import edu.temple.quizgame.R;
 
-public class MultipleChoiceVisual extends AppCompatActivity {
+public class TrueFalseVisual extends AppCompatActivity {
 
-    /*Each Multiple choice question has an ArrayList of buttons to support an invariable number of answers*/
-    ArrayList<Button> answerButtons;
     /*For display of a question*/
     TextView questionTextView;
+    /*radio button for user's response to a T/F question*/
+    RadioButton trueFalseRadioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_multiple_choice);
+        setContentView(R.layout.activity_true_false);
     }
 
     /*sets the question UI element*/
@@ -28,8 +26,7 @@ public class MultipleChoiceVisual extends AppCompatActivity {
     }
 
     /*sets the multiple choice button UI elements*/
-    public void setButtonVisual(String ... stringsToDisplay) {
+    public void setRadioButtonVisual() {
 
     }
-
 }

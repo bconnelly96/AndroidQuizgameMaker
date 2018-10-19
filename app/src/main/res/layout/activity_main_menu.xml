@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".game_ui.MainMenu">
 
+    <Button
+        android:id="@+id/c_g_menu_button"
+        android:layout_width="183dp"
+        android:layout_height="106dp"
+        android:text="Button"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="139dp" />
+
+    <Button
+        android:id="@+id/p_g_menu_button"
+        android:layout_width="183dp"
+        android:layout_height="106dp"
+        android:text="Button"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="313dp" />
 </android.support.constraint.ConstraintLayout>

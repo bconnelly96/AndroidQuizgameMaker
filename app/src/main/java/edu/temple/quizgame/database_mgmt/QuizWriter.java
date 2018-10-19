@@ -49,14 +49,14 @@ public class QuizWriter {
     private int num_quizzes = 0;    //Number of quizzes on file
 
     /*Writes given data to specified filename*/
-    public void writeToFile(String filename, String data) throws IOException {
+    private void writeToFile(String filename, String data) throws IOException {
         FileWriter fw = new FileWriter(filename);
         fw.write(data);
         fw.close();
 
     }
     /*Appends given data to specified filename*/
-    public void appendToFile(String filename, String data) throws IOException {
+    private void appendToFile(String filename, String data) throws IOException {
         FileWriter fw = new FileWriter(filename,true);
         fw.write(data);
         fw.close();

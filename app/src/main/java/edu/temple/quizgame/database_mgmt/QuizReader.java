@@ -12,9 +12,9 @@ public class QuizReader {
 
        File format:
 
+       0  2     <---------Number of quizzes
        1  Quiz name;quiz_id (String)/(int)
        2  Number of questions (int)
-              List questions with answers on the next line
        3  Question #1
        4  a1,a2,a3,a4
        5  Question #2

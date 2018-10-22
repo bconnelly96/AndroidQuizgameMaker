@@ -32,8 +32,8 @@ public class QuizWriter {
         6  true,false
         7  Question #3
         8  answer
-        9  .    <-------- end of quiz
-        10 Quiz name;quiz_id (String)/(int)
+        9  END_OF_QUIZ    <-------- end of quiz
+        10 Quiz ntaame;quiz_id (String)/(int)
         11 Number of questions (int)
         12 Question #1
         13 a1,a2,a3,a4

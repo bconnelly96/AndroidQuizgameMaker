@@ -28,17 +28,17 @@ public class QuestionAdder extends AppCompatActivity {
 
     }
 
-    ArrayList addAnswersFromUser() {
+    /*ArrayList addAnswersFromUser() {
 
-    }
+    }*/
 
-    String addQuestionFromUser() {
+    /*String addQuestionFromUser() {
 
-    }
+    }*/
 
-    String addQuizName() {
+    /*String addQuizName() {
 
-    }
+    }*/
 
     //Data addData() {
     //}

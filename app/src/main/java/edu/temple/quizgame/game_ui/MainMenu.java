@@ -19,5 +19,4 @@ public class MainMenu extends AppCompatActivity {
         createGameButton = (Button) findViewById(R.id.c_g_menu_button);
         playGameButton = (Button) findViewById(R.id.p_g_menu_button);
     }
-
 }

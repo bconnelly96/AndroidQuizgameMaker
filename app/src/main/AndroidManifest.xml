@@ -19,8 +19,8 @@
         <activity android:name=".game_ui.MainMenu" />
         <activity android:name=".game_ui.EndMenu" />
         <activity android:name=".game_ui.MultipleChoiceVisual" />
-        <activity android:name=".game_ui.TrueFalseActivity" />
-        <activity android:name=".game_ui.AnswerActivity"></activity>
+        <activity android:name=".game_ui.TrueFalseVisual" />
+        <activity android:name=".game_ui.QuestionAdder"></activity>
     </application>
 
 </manifest>

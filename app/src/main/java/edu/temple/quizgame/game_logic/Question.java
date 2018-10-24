@@ -2,11 +2,6 @@ package edu.temple.quizgame.game_logic;
 
 import java.util.ArrayList;
 
-/*
- * Question serves as a parent class
- * for all of the question-related logic
- * in the application
- */
 public class Question<T> {
     /*Each instance of Question should have a String representing a question*/
     private String question;

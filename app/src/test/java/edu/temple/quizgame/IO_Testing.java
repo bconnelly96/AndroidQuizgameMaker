@@ -1,5 +1,8 @@
 package edu.temple.quizgame;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -17,14 +20,12 @@ import java.util.List;
 public class IO_Testing {
 
 
-    public void read_file() throws IOException {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private List<String> read_file(String filename) throws IOException {
 
-        File file = new File("test.txt");
-        BufferedReader buffer = new BufferedReader(new java.io.FileReader(file));
+        Path path = Paths.get(filename);
+        return Files.readAllLines(path, StandardCharsets.UTF_8);
 
-        String str;
-        while ((str = buffer.readLine()) != null)
-            System.out.println(str);
     }
 /*
     @Test
@@ -44,17 +45,17 @@ public class IO_Testing {
         read_file();
     }
 */
-   // @Test
-    public void addline() throws IOException {
+    @Test
+    public void read_file_test() throws IOException {
 
-        Path path = Paths.get("test.txt");
-        List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-        lines.add(lines.size(), "Quiz name: test.txt 3");
-        Files.write(path, lines, StandardCharsets.UTF_8);
-        read_file();
+        List<String> test = read_file("test.txt");
+        for (int i = 0; i < test.size(); i++){
+            System.out.println(test.get(i));
+        }
+
     }
 
-    @Test
+   // @Test
     public void rmvLine() throws IOException {
         /*
             Instead, figure out algorithm to find specific questions
@@ -82,7 +83,6 @@ public class IO_Testing {
         writer.close();
         reader.close();
         boolean successful = tempFile.renameTo(inputFile);
-        read_file();
 
     }
 

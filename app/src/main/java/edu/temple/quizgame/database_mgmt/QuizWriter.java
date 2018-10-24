@@ -21,25 +21,27 @@ public class QuizWriter {
            QuizReader.getQuiz() will be the only method that can retrieve a quiz from the quiz data file.
            Once a quiz is loaded, my methods will be able to add/change/delete data with ease.
 
-        File format:
+        Updated File format:
+        Each quiz gets its own .txt file.
 
         1  Quiz name;quiz_id (String)/(int)
         2  Number of questions (int)
-               List questions with answers on the next line
         3  Question #1
         4  a1,a2,a3,a4
         5  Question #2
         6  true,false
         7  Question #3
         8  answer
-        9  END_OF_QUIZ    <-------- end of quiz
-        10 Quiz ntaame;quiz_id (String)/(int)
-        11 Number of questions (int)
-        12 Question #1
-        13 a1,a2,a3,a4
+        9
+        Filename would be 'Quiz_Name.txt'
 
+        A single file named quiz_index.dat will store some basic info about the quiz.
+        Each quiz is assigned an ID. Said ID will be the index in which the name of the .txt file
+        to where that quiz's data is stored.
 
-        and so on...
+        1  Quiz_name.txt    //quiz name's id =1
+        2  Quiz_name2.txt   //quiz name2's id =2
+        3  Quiz_name3.txt   //quiz name3's id =3
 
 
         indexOf(String str) Returns the index within this string of the first occurrence of the specified substring.
@@ -112,7 +114,7 @@ public class QuizWriter {
     /* Adds a line of text to a file */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void addline(String filename, int position, String str) throws IOException {
-        /*  if position < 0, line will be appened to end of file*/
+        /*  if position < 0, line will be appended to end of file*/
         Path path = Paths.get(filename);
         List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
         if(position > lines.size() || position < 0)

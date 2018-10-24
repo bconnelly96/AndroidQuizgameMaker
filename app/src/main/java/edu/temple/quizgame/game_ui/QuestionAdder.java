@@ -10,16 +10,21 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import edu.temple.quizgame.game_logic.QuizSession;
 import edu.temple.quizgame.R;
 
 public class QuestionAdder extends AppCompatActivity {
+    /*UI Elements for user interaction*/
     EditText quizName;
+    EditText questionField;
     Switch questionChoice;
     RadioButton trueFalseSelector;
-    TextView[] multipleChoiceQuestionFields;
+    EditText[] multipleChoiceAnswerFields;
+    TextView tf, mc;
     Button doneButton;
     Button nextQuestionButton;
-
+    /*game logic variables; bridge between UI and logic components of application*/
+    QuizSession quizSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,20 +33,28 @@ public class QuestionAdder extends AppCompatActivity {
 
     }
 
-    /*ArrayList addAnswersFromUser() {
+    /*retrieves and returns user's question from questionField EditText*/
+    String getUserQuestion() {
 
-    }*/
+    }
 
-    /*String addQuestionFromUser() {
+    /*retrieves and returns user's answers from multipleChoiceAnswerFields EditText[] for M-C question*/
+    ArrayList<String> getMCAnswerFields() {
 
-    }*/
+    }
 
-    /*String addQuizName() {
+    /*retrieves and returns user's T/F selection from trueFalseSelector RadioButton*/
+    boolean getTFSelector() {
 
-    }*/
+    }
 
-    //Data addData() {
-    //}
+    /*retrieves and returns user's Quiz Name selection from quizName EditText*/
+    String getQuizName() {
 
-        
+    }
+
+    /*determines and returns whether the current question is T/F or M-C based on user selection on questionChoice Switch*/
+    boolean isTrueFalse() {
+
+    }
 }

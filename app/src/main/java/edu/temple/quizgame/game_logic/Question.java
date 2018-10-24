@@ -13,7 +13,7 @@ public class Question<T> {
     /*Each instance of Question should have an associated correct answer*/
     private T correctAnswer;
     /*Each instance of Question should have an ArrayList of user-created, potential answers*/
-    private ArrayList answers;
+    private ArrayList<T> answers;
 
     public Question(String question, T correctAnswer, ArrayList answers) {
         this.question = question;

@@ -2,5 +2,4 @@
     <string name="app_name">Quiz Game</string>
     <string name="create_game_button">Create A New Game</string>
     <string name="play_game_button">Play An Existing Game</string>
-    <string name="title_activity_answer">activity_answer</string>
 </resources>

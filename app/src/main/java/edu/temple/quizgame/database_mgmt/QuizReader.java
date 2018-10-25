@@ -1,8 +1,7 @@
 package edu.temple.quizgame.database_mgmt;
-import android.annotation.TargetApi;
+
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,7 +9,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
 import edu.temple.quizgame.game_logic.Question;
 
 public class QuizReader {
@@ -26,16 +24,19 @@ public class QuizReader {
 
         0  Quiz name;quiz_id (String)/(int)
         1  Number of questions (int)
-        2  Question #1
-        3  a1,a2,a3,a4
-        4  Question #2
-        5  true,false
-        6  Question #3
-        7  answer
-        8
+        2  Question #1 (multiple choice)
+        3  Correct answer
+        4  Other answers (separated by semicolons)
+        5  Question #2 (true/false)
+        6  true
+        7  false
+        7  Question #3
+        8  answer
+        9  other answers
+        10
         Filename would be 'Quiz_Name.txt'
 
-        A single file named quiz_index.dat will store some basic info about the quiz.
+        A single file named quiz_index.dat will store the file name for each quiz.
         Each quiz is assigned an ID. Said ID will be the index in which the name of the .txt file
         to where that quiz's data is stored.
 
@@ -60,23 +61,23 @@ public class QuizReader {
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void getQuiz(String quiz_name) throws IOException {
+    public ArrayList<Object> getQuiz(String quiz_name) throws IOException {
 
         //Load quiz data to a list
         List<String> quiz_text = read_file(quiz_name);
         //Create arraylist for Question objects
-        ArrayList<Question> question_list = new ArrayList<Question>();
+        ArrayList<Object> quiz = new ArrayList<>();
         Question curr;
         int n = 0;
-        //Iterate through quiz to load questions and answers in memory
+        //Iterate through quiz to load questions and answers into memory
         for (int i = 2; i < quiz_text.size()-1; i++){
-            //curr =;
+            curr = new Question(null,null,null);
+            curr.setQuestion(quiz_text.get(i));
+            curr.setCorrectAnswer(quiz_text.get(i+1));
+            //NEEDS setAnswers() METHOD HERE
+
         }
-
+        return quiz;
     }
 
-    public static void getQuestion() {
-
-
-    }
 }

@@ -2,18 +2,16 @@ package edu.temple.quizgame.database_mgmt;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import edu.temple.quizgame.game_logic.Question;
+
 
 public class QuizWriter {
     /*NOTE* Since one quiz can be worked on at time, quizzes should be loaded into some data structure
@@ -24,36 +22,35 @@ public class QuizWriter {
         Updated File format:
         Each quiz gets its own .txt file.
 
-        1  Quiz name;quiz_id (String)/(int)
-        2  Number of questions (int)
-        3  Question #1
-        4  a1,a2,a3,a4
-        5  Question #2
-        6  true,false
-        7  Question #3
-        8  answer
-        9
+        0  Quiz name;quiz_id (String)/(int)
+        1  Number of questions (int)
+        2  Question #1 (multiple choice)
+        3  Correct answer
+        4  Other answers (separated by semicolons)
+        5  Question #2 (true/false)
+        6  true
+        7  false
+        8  Question #3
+        9  answer
+        10  other answers
+        11
         Filename would be 'Quiz_Name.txt'
 
-        A single file named quiz_index.dat will store some basic info about the quiz.
+        A single file named quiz_index.dat will store the file name for each quiz.
         Each quiz is assigned an ID. Said ID will be the index in which the name of the .txt file
         to where that quiz's data is stored.
 
-        1  Quiz_name.txt    //quiz name's id =1
-        2  Quiz_name2.txt   //quiz name2's id =2
-        3  Quiz_name3.txt   //quiz name3's id =3
-
-
-        indexOf(String str) Returns the index within this string of the first occurrence of the specified substring.
-        indexOf(int ch, int fromIndex) Returns the index within this string of the first occurrence of the specified character, starting the search at the specified index.
-     */
+        0  Quiz_name.txt    //quiz name's id =1
+        1  Quiz_name2.txt   //quiz name2's id =2
+        2  Quiz_name3.txt   //quiz name3's id =3
+    */
 
     private int num_quizzes = 0;    //Number of quizzes on file
 
     /*Writes given data to specified filename*/
-    private void writeToFile(String filename, String data) throws IOException {
+    private void writeToFile(String filename, String data, int offset) throws IOException {
         FileWriter fw = new FileWriter(filename);
-        fw.write(data);
+        fw.write(data,offset,data.length());
         fw.close();
 
     }
@@ -67,49 +64,48 @@ public class QuizWriter {
 
 
 
-    public void createQuiz(String name) throws IOException {
-        FileWriter fw;
-        //First quiz
-        if (num_quizzes == 0 ){
-            num_quizzes++;
-            writeToFile("test.txt",num_quizzes +    //Head of file indicates number of quizzes
-                                              "\nQuiz Name: " + name + ";" + num_quizzes +
-                                              "\n.");             //'.' signifies end of quiz
-        }
-        else {
-            num_quizzes++;
-            appendToFile("test.txt","\nQuiz Name: " + name + ";" + num_quizzes +
-                                                  "\n.");
+    public void writeQuizToFile(ArrayList<Object> questions, int id) throws IOException {
+
+        //check to make sure questions in not null
+
+        //Setup buffer to write
+        StringBuilder data = new StringBuilder();
+        Question curr;
+        int fileLength = questions.size() * 3 + 2; //Num questions * (3 lines in file) + 2 (offset)
+        //Loop through list to add to buffer
+        for (int i = 0; i < questions.size(); i++ ){
+            curr = (Question) questions.get(i);
+            data.append(curr.getQuestion()).append("\n");
+            data.append((String) curr.getCorrectAnswer()).append("\n");
+            data.append(arrayListToString(curr.getAnswers())).append("\n");
 
         }
-
+        //Write buffer to file
+        writeToFile(getQuizFilename(),data.toString(),0);
+        //Write quiz id to file
+        writeToFile("quiz_index.dat", Integer.toString(id), id);
 
     }
 
-    /* Removes a question from specified quiz */
-    public void rmvQuestion(int question_num, int quiz_id) throws IOException {
-    /*
-        File inputFile = new File("test.txt");
-        File tempFile = new File("myTempFile.txt");
+    private String getQuizFilename() {
 
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        //Fill in code
 
-        String lineToRemove = "test tset";
-        String currentLine;
 
-        while((currentLine = reader.readLine()) != null) {
-            // trim newline when comparing with lineToRemove
-            String trimmedLine = currentLine.trim();
-            if(trimmedLine.equals(lineToRemove)) continue;
-            writer.write(currentLine + System.getProperty("line.separator"));
-        }
-        writer.close();
-        reader.close();
-        boolean successful = tempFile.renameTo(inputFile);
-
-    */
+        return "";
     }
+
+    private String arrayListToString(ArrayList<Object> list){
+
+        StringBuilder sb = new StringBuilder();
+        for (Object s : list) {
+            sb.append(s);
+            sb.append(";");
+        }
+        return sb.toString();
+    }
+
+
 
     /* Adds a line of text to a file */
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -125,8 +121,8 @@ public class QuizWriter {
 
     }
 
-    /* Appends a question to an existing quiz*/
-    public void addToQuiz(int quiz_id, String question) throws IOException {
+    /* Sets quiz id*/
+    public void setQuizID(int id) {
 
 
 

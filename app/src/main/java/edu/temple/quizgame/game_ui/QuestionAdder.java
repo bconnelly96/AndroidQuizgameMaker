@@ -35,26 +35,26 @@ public class QuestionAdder extends AppCompatActivity {
 
     /*retrieves and returns user's question from questionField EditText*/
     String getUserQuestion() {
-
+        return null;
     }
 
     /*retrieves and returns user's answers from multipleChoiceAnswerFields EditText[] for M-C question*/
     ArrayList<String> getMCAnswerFields() {
-
+        return null;
     }
 
     /*retrieves and returns user's T/F selection from trueFalseSelector RadioButton*/
     boolean getTFSelector() {
-
+        return true;
     }
 
     /*retrieves and returns user's Quiz Name selection from quizName EditText*/
     String getQuizName() {
-
+        return null;
     }
 
     /*determines and returns whether the current question is T/F or M-C based on user selection on questionChoice Switch*/
     boolean isTrueFalse() {
-
+        return true;
     }
 }

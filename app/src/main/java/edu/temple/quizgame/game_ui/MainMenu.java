@@ -2,11 +2,10 @@ package edu.temple.quizgame.game_ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< HEAD
-=======
+
 import android.widget.Button;
 
->>>>>>> 7590683b9f5623b91996f3319573b8ece8966e14
+
 import edu.temple.quizgame.R;
 
 public class MainMenu extends AppCompatActivity {

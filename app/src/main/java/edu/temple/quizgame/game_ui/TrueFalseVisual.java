@@ -35,6 +35,6 @@ public class TrueFalseVisual extends AppCompatActivity {
 
     /*retrieves the user's T/F selection from the class' radio button*/
     public boolean getUserChoice() {
-
+        return true;
     }
 }

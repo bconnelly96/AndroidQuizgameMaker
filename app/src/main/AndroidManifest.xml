@@ -20,7 +20,10 @@
         <activity android:name=".game_ui.EndMenu" />
         <activity android:name=".game_ui.MultipleChoiceVisual" />
         <activity android:name=".game_ui.TrueFalseVisual" />
-        <activity android:name=".game_ui.QuestionAdder"></activity>
+        <activity android:name=".game_ui.QuestionAdder" />
+        <activity
+            android:name=".activity_answer"
+            android:label="@string/title_activity_answer"></activity>
     </application>
 
 </manifest>

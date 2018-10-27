@@ -2,23 +2,20 @@ package edu.temple.quizgame.game_ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< HEAD
+
 import edu.temple.quizgame.R;
 
-=======
+
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import edu.temple.quizgame.game_logic.*;
 
-import java.util.ArrayList;
-
-import edu.temple.quizgame.R;
->>>>>>> 7590683b9f5623b91996f3319573b8ece8966e14
 
 public class MultipleChoiceVisual extends AppCompatActivity {
-
-    /*Each Multiple choice question has an ArrayList of buttons to support an invariable number of answers*/
-    ArrayList<Button> answerButtons;
+    final int NUM_BUTTONS = 4;
+    /*Each Multiple choice question has four possible answers and thus four possible answerButtons*/
+    Button[] answerButtons = new Button[4];
     /*For display of a question*/
     TextView questionTextView;
     /*Reference to the question's logical attributes*/
@@ -30,19 +27,43 @@ public class MultipleChoiceVisual extends AppCompatActivity {
         setContentView(R.layout.activity_multiple_choice);
     }
 
-    /*sets the question UI element*/
-    public void setQuestionVisual(String stringToDisplay) {
+    /*public constructor initializes UI element objects and the M-C Question reference*/
+    public MultipleChoiceVisual(MultipleChoiceQuestion mcQuestionRef) {
+        questionTextView = findViewById(R.id.mc_textView);
+        answerButtons[0] = findViewById(R.id.mc_button1);
+        answerButtons[1] = findViewById(R.id.mc_button2);
+        answerButtons[2] = findViewById(R.id.mc_button3);
+        answerButtons[3] = findViewById(R.id.mc_button4);
+        this.mCQuestionRef = mcQuestionRef;
+    }
 
+    /*sets the question UI element*/
+    public void setQuestionText(String stringToDisplay) {
+        questionTextView.setText(stringToDisplay);
     }
 
     /*sets the multiple choice button UI elements*/
-    public void setButtonVisual(String ... stringsToDisplay) {
-
+    public void setButtonText(String ... stringsToDisplay) {
+        for(int i = 0; i < NUM_BUTTONS; i++) {
+            answerButtons[i].setText(stringsToDisplay[i]);
+        }
     }
 
-    /*retrieves & returns the user's T/F selection from the class' radio button*/
+    //TODO: finish this method
+    /*retrieves & returns the user's selection from the answer buttons*/
     public String getUserChoice() {
+        String userChoice = "";
 
+        for (int i = 0; i < NUM_BUTTONS; i++) {
+            final int j = i;
+            answerButtons[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    userChoice = answerButtons[i].getText();
+                }
+            });
+        }
+        return userChoice;
     }
 
 }

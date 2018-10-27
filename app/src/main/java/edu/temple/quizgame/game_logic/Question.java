@@ -40,15 +40,9 @@ public class Question<T> {
         return answers;
     }
 
-
     /*returns true if the userAnswer arg. is equal to the Question's correctAnswer var.*/
     public boolean isCorrectAnswer(T userAnswer) {
-        return false;
-    }
-
-    /*adds a single answer of unspecified type to the ArrayList of answers*/
-    public void addAnswer(T newAnswer) {
-
+        return userAnswer == correctAnswer;
     }
 }
 

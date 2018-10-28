@@ -44,5 +44,9 @@ public class Question<T> {
     public boolean isCorrectAnswer(T userAnswer) {
         return userAnswer == correctAnswer;
     }
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> 9b63e088003c9e11cc7477bfbd16b4a4c602c2ba

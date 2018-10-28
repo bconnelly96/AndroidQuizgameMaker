@@ -2,15 +2,14 @@ package edu.temple.quizgame.game_ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import edu.temple.quizgame.R;
-
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import edu.temple.quizgame.game_logic.*;
 
+import java.util.ArrayList;
+
+import edu.temple.quizgame.R;
 
 public class MultipleChoiceVisual extends AppCompatActivity {
     final int NUM_BUTTONS = 4;

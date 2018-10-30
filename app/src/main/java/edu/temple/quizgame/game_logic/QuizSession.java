@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /*
-*QuizSession objects tie together
-*the logic components of a quiz.
-*They are the objects that are to be saved
-*in the public directory of a user's phone
-*/
+ *QuizSession objects tie together
+ *the logic components of a quiz.
+ *They are the objects that are to be saved
+ *in the public directory of a user's phone
+ */
 public class QuizSession {
     /*keeps track of the number of questions in a quiz*/
     int numQuestions;
     /*holds the quiz questions;
-    *more specifically, holds the question visuals, which contain references
-    *to Question objects*/
+     *more specifically, holds the question visuals, which contain references
+     *to Question objects*/
     ArrayList<Question> quizQuestions;
     /*Gives quiz a name for display to user*/
     String quizName;
@@ -26,7 +26,7 @@ public class QuizSession {
         numQuestions = 0;
         quizQuestions = new ArrayList<Question>();
         quizName = "";
-        quizID = getID();
+        quizID = setID();
     }
 
     /*adds a question to the QuizSession's ArrayList of questions*/
@@ -42,9 +42,28 @@ public class QuizSession {
         this.quizName = quizName;
     }
 
+    //Added methods by Joshee
+    public Question getQuestion(int i) {
+        return quizQuestions.get(i);
+    }
+
+    public String getQuizName() {
+        return quizName;
+    }
+
+    public int getNumQuestions() {
+        return numQuestions;
+    }
+
+    public long getID() {
+        return quizID;
+    }
+    //End of added methods
+    //also renamed getID() to setID()
+
     //TODO: Add check and associated variables to ensure each ID is unique
     /*returns a long representing a quiz's unique ID*/
-    private long getID() {
+    private long setID() {
         Random r = new Random();
         return r.nextLong();
     }

@@ -2,6 +2,7 @@ package edu.temple.quizgame.database_mgmt;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -9,7 +10,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
 import edu.temple.quizgame.game_logic.Question;
+import edu.temple.quizgame.game_logic.QuizSession;
 
 public class QuizReader {
 
@@ -36,7 +39,7 @@ public class QuizReader {
         10
         Filename would be 'Quiz_Name.txt'
 
-        A single file named quiz_index.dat will store the file name for each quiz.
+        A single file named quiz_index.dat will store the file name for each quiz in increasing order.
         Each quiz is assigned an ID. Said ID will be the index in which the name of the .txt file
         to where that quiz's data is stored.
 
@@ -50,9 +53,9 @@ public class QuizReader {
      */
 
 
-   /* Reads a file line-by-line and returns the contents as a List*/
+    /* Reads a file line-by-line and returns the contents as a List*/
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private List<String> read_file(String filename) throws IOException {
+    public static List<String> read_file(String filename) throws IOException {
 
         Path path = Paths.get(filename);
         return Files.readAllLines(path, StandardCharsets.UTF_8);
@@ -60,13 +63,12 @@ public class QuizReader {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public ArrayList<Object> getQuiz(String quiz_name) throws IOException {
+    public QuizSession getQuiz(long id) throws IOException {
 
         //Load quiz data to a list
-        List<String> quiz_text = read_file(quiz_name);
+        List<String> quiz_text = read_file(Long.toString(id));
         //Create arraylist for Question objects
-        ArrayList<Object> quiz = new ArrayList<>();
+        QuizSession quiz = new QuizSession();
         Question curr;
         int n = 0;
         //Iterate through quiz to load questions and answers into memory

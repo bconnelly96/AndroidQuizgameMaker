@@ -15,75 +15,67 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+
+import edu.temple.quizgame.database_mgmt.QuizReader;
+import edu.temple.quizgame.database_mgmt.QuizWriter;
+import edu.temple.quizgame.game_logic.Question;
+import edu.temple.quizgame.game_logic.QuizSession;
 
 public class IO_Testing {
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private List<String> read_file(String filename) throws IOException {
-
-        Path path = Paths.get(filename);
-        return Files.readAllLines(path, StandardCharsets.UTF_8);
-
-    }
-/*
     @Test
-    public void createQuiz() throws IOException {
+    public void main() throws IOException {
 
-        System.out.println("\ncreateQuiz test.....");
+        //Test 1 .dat file creation
+        int dat = QuizWriter.createFile("test.dat",4);
+        System.out.println("Test 1 == " + (dat==1));
 
-        int num_quizzes = 0;
-        FileWriter fw;
-        //First quiz
-        if (num_quizzes == 0){
-            fw = new FileWriter("test.txt");
-            fw.write("Quiz name: test.txt\n");
-            fw.write("Testing createQuiz method.");
-            fw.close();
-        }
-        read_file();
-    }
-*/
-    @Test
-    public void read_file_test() throws IOException {
-
-        List<String> test = read_file("test.txt");
-        for (int i = 0; i < test.size(); i++){
-            System.out.println(test.get(i));
+        //Test 2 write to .dat file and read from it
+        String input = "Successfully replaced line 0";
+        try {
+            QuizWriter.replaceLine("test.dat",0,input);
+            List<String> text = QuizReader.read_file("test.dat");
+            System.out.println("Test 2 == " + text.get(0).equals(input));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-    }
-
-   // @Test
-    public void rmvLine() throws IOException {
-        /*
-            Instead, figure out algorithm to find specific questions
-            at it's index.
-            Note: Since each heading is the same, then question #n's
-            index should be at the head of the quiz (Quiz name/id).index + 2n
-            *Maybe save head of quiz index in metadata
-         */
-
-        File inputFile = new File("test.txt");
-        File tempFile = new File("myTempFile.txt");
-
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-        String lineToRemove = "Quiz name: test.txt 3";
-        String currentLine;
-
-        while((currentLine = reader.readLine()) != null) {
-            // trim newline when comparing with lineToRemove
-            String trimmedLine = currentLine.trim();
-            if(trimmedLine.equals(lineToRemove)) continue;
-            writer.write(currentLine + System.getProperty("line.separator"));
+        //Test 3 create new quiz session
+        QuizSession quiz = new QuizSession();
+        if(quiz.getID() < 0 || quiz.getID() > 0 ){
+            System.out.println("Test 3 == true ");
         }
-        writer.close();
-        reader.close();
-        boolean successful = tempFile.renameTo(inputFile);
+        else{
+            System.out.println("Test 3 == false ");
+        }
 
+        //Test 4 set and get quiz name
+        String quiz_name = "TestQuiz001";
+        quiz.setQuizName(quiz_name);
+        String newQuiz_name = quiz.getQuizName();
+        System.out.println("Test 4 == " + newQuiz_name.equals(quiz_name));
+
+        //Test 5 generate a quiz with answers
+        ArrayList<String> answers = new ArrayList<>();
+        for(int i = 11; i<14; i++){
+
+            answers.add("Incorrect Ans = " + i);
+        }
+
+        ArrayList<Question> questions = new ArrayList<>();
+        for(int i = 1; i<6; i++){
+
+            Question<String> q = new Question<>("Question #" + i, "Correct Ans = " + (i+5) ,answers);
+            quiz.addQuestion(q);
+            quiz.incrementNumQuestions();
+        }
+
+        try {
+            QuizWriter.writeQuizToFile(quiz,quiz.getNumQuestions(),1234);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
 }

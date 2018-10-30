@@ -1,3 +1,0 @@
-Testing createQuiz method.
-Quiz name: test.txt
-Quiz name: test.txt 4

@@ -3,14 +3,6 @@ package edu.temple.quizgame.game_logic;
 
 import java.util.ArrayList;
 
-<<<<<<< HEAD
-=======
-/*
-* Question serves as a parent class
-* for all of the question-related logic
-* in the application
-*/
->>>>>>> logic/UI_dev
 public class Question<T> {
     /*Each instance of Question should have a String representing a question*/
     private String question;
@@ -47,9 +39,5 @@ public class Question<T> {
     public boolean isCorrectAnswer(T userAnswer) {
         return userAnswer == correctAnswer;
     }
-<<<<<<< HEAD
 }
 
-=======
-}
->>>>>>> 9b63e088003c9e11cc7477bfbd16b4a4c602c2ba

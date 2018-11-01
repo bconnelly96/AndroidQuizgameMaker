@@ -114,12 +114,12 @@ public class QuestionAdder extends AppCompatActivity {
 
     /*determines and returns whether the current question is T/F or M-C based on user selection on questionChoice Switch*/
     private boolean isTrueFalse() {
-
+        return true;
     }
 
     /*returns true if all of the data fields have been altered by the user*/
     private boolean allFieldsValid() {
-
+        return true;
     }
 
     //TODO: reset RadioGroup and switch

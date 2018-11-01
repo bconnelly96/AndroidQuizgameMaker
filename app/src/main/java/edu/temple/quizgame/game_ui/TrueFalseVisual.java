@@ -27,7 +27,7 @@ public class TrueFalseVisual extends AppCompatActivity {
         //TODO receive TrueFalseQuestion object from Intent extra
 
         qTextView = findViewById(R.id.tf_textview);
-        tfRadioGroup = findViewById(R.id.true_false_rg)
+        tfRadioGroup = findViewById(R.id.true_false_rg);
     }
 
     /*sets the question UI element*/
@@ -37,6 +37,6 @@ public class TrueFalseVisual extends AppCompatActivity {
 
     /*retrieves the user's T/F selection from the class' radio button*/
     public boolean getUserChoice() {
-
+        return true;
     }
 }

@@ -51,7 +51,7 @@ public class MultipleChoiceVisual extends AppCompatActivity {
     //TODO: finish this method
     /*retrieves & returns the user's selection from the answer buttons*/
     public String getUserChoice() {
-        String userChoice = "";
+        /*String userChoice = "";
 
         for (int i = 0; i < NUM_BUTTONS; i++) {
             final int j = i;
@@ -62,7 +62,8 @@ public class MultipleChoiceVisual extends AppCompatActivity {
                 }
             });
         }
-        return userChoice;
+        return userChoice; */
+        return null;
     }
 
 }

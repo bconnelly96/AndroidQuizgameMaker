@@ -1,5 +1,6 @@
 package edu.temple.quizgame.game_logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /*
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 * for all of the question-related logic
 * in the application
 */
-public class Question<T> {
+public class Question<T> implements Serializable {
     /*Each instance of Question should have a String representing a question*/
     private String question;
     /*Each instance of Question should have an associated correct answer*/

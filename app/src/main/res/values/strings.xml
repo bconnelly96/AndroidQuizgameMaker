@@ -16,4 +16,6 @@
     <string name="empty_field">One or More Fields is Empty</string>
     <string name="true_false_question">True/False Question</string>
     <string name="multiple_choice_question">Multiple Choice Question</string>
+    <string name="next_string">Next Question</string>
+    <string name="prev_string">Previous Question</string>
 </resources>

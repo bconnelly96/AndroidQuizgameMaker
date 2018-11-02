@@ -26,7 +26,7 @@ public class QuestionAdder extends AppCompatActivity {
     Switch questionTypeChoice;
     RadioGroup correctAnswerSelectorTF;
     RadioGroup correctAnswerSelectorMC;
-    EditText[] multipleChoiceAnswerFields;
+    EditText[] multipleChoiceAnswerFields = new EditText[NUM_ANSWER_FIELDS];
     Button doneButton;
     Button nextQuestionButton;
     /*game logic variables; bridge between UI and logic components of application*/
@@ -114,12 +114,12 @@ public class QuestionAdder extends AppCompatActivity {
 
     /*determines and returns whether the current question is T/F or M-C based on user selection on questionChoice Switch*/
     private boolean isTrueFalse() {
-
+        return false;
     }
 
     /*returns true if all of the data fields have been altered by the user*/
     private boolean allFieldsValid() {
-
+        return false;
     }
 
     //TODO: reset RadioGroup and switch
@@ -129,7 +129,6 @@ public class QuestionAdder extends AppCompatActivity {
         for (int i = 0; i < NUM_ANSWER_FIELDS; i++) {
             multipleChoiceAnswerFields[i].setText("");
         }
-
     }
 
     private void addQuestionToQuiz() {

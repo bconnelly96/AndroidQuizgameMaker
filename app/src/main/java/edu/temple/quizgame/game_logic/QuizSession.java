@@ -58,6 +58,10 @@ public class QuizSession {
     public long getID() {
         return quizID;
     }
+
+    public void setManualID(long id) {
+        this.quizID = id;
+    }
     //End of added methods
     //also renamed getID() to setID()
 
@@ -65,6 +69,10 @@ public class QuizSession {
     /*returns a long representing a quiz's unique ID*/
     private long setID() {
         Random r = new Random();
-        return r.nextLong();
+        long R = r.nextLong();
+        if (R < 0){
+            R = -1 * R;
+        }
+        return R;
     }
 }

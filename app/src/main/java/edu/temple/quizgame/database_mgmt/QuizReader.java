@@ -1,31 +1,28 @@
 package edu.temple.quizgame.database_mgmt;
 
+import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 import edu.temple.quizgame.game_logic.Question;
 import edu.temple.quizgame.game_logic.QuizSession;
 
 public class QuizReader {
-
-
     /*NOTE* Since one quiz can be worked on at time, quizzes should be loaded into some data structure
-           for data manipulation.
-           QuizReader.getQuiz() will be the only method that can retrieve a quiz from the quiz data file.
-           Once a quiz is loaded, my methods will be able to add/change/delete data with ease.
+           for data manipulation. SOLVED see QuizSession.java
+           QuizReader.getQuiz() should be the only method that can retrieve a quiz from the quiz data file.
+           Once a quiz is loaded, our combined methods will be able to add/change/delete data with ease.
 
         Updated File format:
-        Each quiz gets its own .txt file.
+        Each quiz gets its own .dat file.
 
-        0  Quiz name;quiz_id (String)/(int)
+        0  Quiz name (String)
         1  Number of questions (int)
         2  Question #1 (multiple choice)
         3  Correct answer
@@ -33,53 +30,58 @@ public class QuizReader {
         5  Question #2 (true/false)
         6  true
         7  false
-        7  Question #3
-        8  answer
-        9  other answers
-        10
-        Filename would be 'Quiz_Name.txt'
+        8  Question #3
+        9  answer
+        10  other answers
+        11
 
-        A single file named quiz_index.dat will store the file name for each quiz in increasing order.
-        Each quiz is assigned an ID. Said ID will be the index in which the name of the .txt file
-        to where that quiz's data is stored.
+        Filename would be 'quiz_id.dat'
 
-        0  Quiz_name.txt    //quiz name's id =1
-        1  Quiz_name2.txt   //quiz name2's id =2
-        2  Quiz_name3.txt   //quiz name3's id =3
-
-
-        indexOf(String str) Returns the index within this string of the first occurrence of the specified substring.
-        indexOf(int ch, int fromIndex) Returns the index within this string of the first occurrence of the specified character, starting the search at the specified index.
-     */
+    */
 
 
     /* Reads a file line-by-line and returns the contents as a List*/
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static List<String> read_file(String filename) throws IOException {
+    public static ArrayList<String> read_file(Context context, String filename) throws IOException {
 
-        Path path = Paths.get(filename);
-        return Files.readAllLines(path, StandardCharsets.UTF_8);
-
+        File file = new File(context.getFilesDir(),filename);
+        BufferedReader buffer = new BufferedReader(new java.io.FileReader(file));
+        ArrayList<String> file_content = new ArrayList<>();
+        String str;
+        while ((str = buffer.readLine()) != null) {
+            file_content.add(str);
+        }
+        buffer.close();
+        return file_content;
     }
 
 
-    public QuizSession getQuiz(long id) throws IOException {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static QuizSession getQuiz(Context context, long id) throws IOException {
 
         //Load quiz data to a list
-        List<String> quiz_text = read_file(Long.toString(id));
+        ArrayList<String> quiz_text = read_file(context, id + ".dat");
         //Create arraylist for Question objects
         QuizSession quiz = new QuizSession();
         Question curr;
         int n = 0;
         //Iterate through quiz to load questions and answers into memory
-        for (int i = 2; i < quiz_text.size()-1; i++){
-            curr = new Question(null,null,null);
-            curr.setQuestion(quiz_text.get(i));
-            curr.setCorrectAnswer(quiz_text.get(i+1));
-            //NEEDS setAnswers() METHOD HERE
-
+        for (int i = 2; i < quiz_text.size()-2; i++){
+            curr = new Question<>(quiz_text.get(i),quiz_text.get(i+1),answersToArrayList(quiz_text.get(i+2)));
+            quiz.addQuestion(curr);
+            quiz.incrementNumQuestions();
         }
+        quiz.setQuizName(quiz_text.get(0));
+        quiz.setManualID(id);
+
         return quiz;
+    }
+
+    private static ArrayList<String> answersToArrayList(String answers){
+
+        String[] delim = answers.split(",");
+
+        return (new ArrayList<>(Arrays.asList(delim)));
     }
 
 }

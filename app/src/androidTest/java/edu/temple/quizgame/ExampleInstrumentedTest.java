@@ -7,7 +7,15 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import edu.temple.quizgame.database_mgmt.QuizReader;
+import edu.temple.quizgame.database_mgmt.QuizWriter;
+import edu.temple.quizgame.game_logic.Question;
+import edu.temple.quizgame.game_logic.QuizSession;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -17,10 +25,47 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
-    public void useAppContext() {
+    public void useAppContext() throws IOException {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("edu.temple.quizgame", appContext.getPackageName());
+
+        String filename = "text.txt";
+
+        //Test 1 create, write, and read from a file
+        int test = QuizWriter.createFile(appContext,filename);
+        assertEquals(1,test);
+        String input = "writeToFile = true";
+        QuizWriter.writeToFile(appContext, filename, input);
+        ArrayList<String> file_contents = QuizReader.read_file(appContext,filename);
+        assertEquals("writeToFile = true",file_contents.get(0));
+
+
+        //Test 2 create quiz and write to file
+        QuizSession quiz = new QuizSession();
+        String quiz_name = "TestQuiz001";
+        quiz.setQuizName(quiz_name);
+
+        ArrayList<String> answers = new ArrayList<>();
+        for(int i = 11; i<14; i++){
+            answers.add("Incorrect Ans = " + i);
+        }
+        for(int i = 1; i<6; i++){
+            Question q = new Question<>("Question #" + i, "Correct Ans = " + (i+5) ,answers);
+            quiz.addQuestion(q);
+            quiz.incrementNumQuestions();
+        }
+        QuizWriter.writeQuizToFile(appContext,quiz,quiz.getNumQuestions(),quiz.getID());
+
+        ArrayList<String> text = QuizReader.read_file(appContext,quiz.getID()+".dat");
+        assertEquals(quiz_name,text.get(0));
+
+        //Test 3 getQuiz()
+        QuizSession quiz2 = QuizReader.getQuiz(appContext,quiz.getID());
+        assertEquals(quiz.getID(),quiz2.getID());
+        assertEquals(quiz.getQuestion(0).getQuestion(),quiz2.getQuestion(0).getQuestion());
+
+
     }
 }

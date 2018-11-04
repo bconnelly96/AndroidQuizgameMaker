@@ -1,7 +1,7 @@
 package edu.temple.quizgame.game_ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,10 +12,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import edu.temple.quizgame.R;
 import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 import edu.temple.quizgame.game_logic.Question;
 import edu.temple.quizgame.game_logic.QuizSession;
-import edu.temple.quizgame.R;
 import edu.temple.quizgame.game_logic.TrueFalseQuestion;
 
 public class QuestionAdder extends AppCompatActivity {

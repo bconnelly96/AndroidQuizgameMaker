@@ -6,7 +6,9 @@ import android.support.annotation.RequiresApi;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -44,14 +46,18 @@ public class QuizReader {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static ArrayList<String> read_file(Context context, String filename) throws IOException {
 
-        File file = new File(context.getFilesDir(),filename);
-        BufferedReader buffer = new BufferedReader(new java.io.FileReader(file));
-        ArrayList<String> file_content = new ArrayList<>();
-        String str;
-        while ((str = buffer.readLine()) != null) {
-            file_content.add(str);
+        ArrayList<String> file_content = null;
+        FileInputStream is = context.openFileInput(filename);
+        if (is != null) {
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader buffer = new BufferedReader(isr);
+            file_content = new ArrayList<>();
+            String str;
+            while ((str = buffer.readLine()) != null) {
+                file_content.add(str);
+            }
+            buffer.close();
         }
-        buffer.close();
         return file_content;
     }
 
@@ -66,7 +72,7 @@ public class QuizReader {
         Question curr;
         int n = 0;
         //Iterate through quiz to load questions and answers into memory
-        for (int i = 2; i < quiz_text.size()-2; i++){
+        for (int i = 2; i < quiz_text.size()-2; i += 3){
             curr = new Question<>(quiz_text.get(i),quiz_text.get(i+1),answersToArrayList(quiz_text.get(i+2)));
             quiz.addQuestion(curr);
             quiz.incrementNumQuestions();

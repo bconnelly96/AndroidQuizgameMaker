@@ -64,7 +64,11 @@ public class ExampleInstrumentedTest {
         //Test 3 getQuiz()
         QuizSession quiz2 = QuizReader.getQuiz(appContext,quiz.getID());
         assertEquals(quiz.getID(),quiz2.getID());
-        assertEquals(quiz.getQuestion(0).getQuestion(),quiz2.getQuestion(0).getQuestion());
+        for (int i = 0; i < quiz2.getNumQuestions(); i++) {
+            assertEquals(quiz.getQuestion(i).getQuestion(), quiz2.getQuestion(i).getQuestion());
+            assertEquals("Question #" + (i+1), quiz2.getQuestion(i).getQuestion());
+        }
+
 
 
     }

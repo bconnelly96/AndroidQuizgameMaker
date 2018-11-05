@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -42,9 +43,10 @@ public class QuizWriter {
 
     /*  Creates a file of specified size
         Returns 1 if file was created successfully, -1 otherwise */
-    public static int createFile(Context context, String filename){
-        File file = new File(context.getFilesDir(), filename);
-        if (file.exists()){
+    public static int createFile(Context context, String filename) throws IOException {
+        FileOutputStream file = context.openFileOutput(filename,Context.MODE_PRIVATE);
+        if (file.getFD() != null){
+            file.close();
             return 1;
         }
         return -1;
@@ -52,9 +54,9 @@ public class QuizWriter {
     }
 
     /*Writes given data to specified filename*/
-    public static void writeToFile(Context context, String filename, String data) throws IOException {
+    public static void writeToFile(Context context, String filename, String data) {
         try {
-            OutputStream os = new FileOutputStream(new File(context.getFilesDir(), filename));
+            FileOutputStream os = context.openFileOutput(filename,Context.MODE_PRIVATE);
             os.write(data.getBytes());
             os.close();
         } catch (Exception e) {

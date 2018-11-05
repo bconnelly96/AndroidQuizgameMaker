@@ -16,6 +16,7 @@ import edu.temple.quizgame.game_logic.Question;
 import edu.temple.quizgame.game_logic.QuizSession;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -67,6 +68,11 @@ public class ExampleInstrumentedTest {
         for (int i = 0; i < quiz2.getNumQuestions(); i++) {
             assertEquals(quiz.getQuestion(i).getQuestion(), quiz2.getQuestion(i).getQuestion());
             assertEquals("Question #" + (i+1), quiz2.getQuestion(i).getQuestion());
+            for(int j =0; j < 3; j++) {
+                String q1 = (String) quiz.getQuestion(j).getAnswers().get(j);
+                String q2 = (String) quiz2.getQuestion(j).getAnswers().get(j);
+                assertEquals(q1,q2);
+            }
         }
 
 

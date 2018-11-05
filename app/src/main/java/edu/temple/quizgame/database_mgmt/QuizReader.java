@@ -85,7 +85,7 @@ public class QuizReader {
 
     private static ArrayList<String> answersToArrayList(String answers){
 
-        String[] delim = answers.split(",");
+        String[] delim = answers.split(", ");
 
         return (new ArrayList<>(Arrays.asList(delim)));
     }

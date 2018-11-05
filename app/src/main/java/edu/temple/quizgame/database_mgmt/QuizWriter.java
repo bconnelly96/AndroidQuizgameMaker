@@ -1,15 +1,9 @@
 package edu.temple.quizgame.database_mgmt;
 
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
 
 import edu.temple.quizgame.game_logic.Question;
 import edu.temple.quizgame.game_logic.QuizSession;

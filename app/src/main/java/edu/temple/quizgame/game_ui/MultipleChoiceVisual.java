@@ -11,15 +11,22 @@ import android.widget.Toast;
 import edu.temple.quizgame.R;
 import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 
+
+/*This activity receives a Question object via Intent extra,
+* uses it to set its UI elements,
+* waits for user selection,
+* and reports user selection back to the calling activity
+* */
 public class MultipleChoiceVisual extends AppCompatActivity implements View.OnClickListener {
 
     private final int NUM_BUTTONS = 4;
 
     String selectedAnswer = "";
+    MultipleChoiceQuestion mcQuestion;
+
 
     TextView qText;
     Button[] answers = new Button[4];
-    MultipleChoiceQuestion mcQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +34,7 @@ public class MultipleChoiceVisual extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_multiple_choice_visual);
 
         Intent qIntent = getIntent();
-        mcQuestion = (MultipleChoiceQuestion) qIntent.getSerializableExtra("question_obj");
+        mcQuestion = (MultipleChoiceQuestion) qIntent.getSerializableExtra("mc_obj");
 
         qText = findViewById(R.id.mc_textView);
         answers[0] = findViewById(R.id.mc_1);
@@ -36,8 +43,6 @@ public class MultipleChoiceVisual extends AppCompatActivity implements View.OnCl
         answers[3] = findViewById(R.id.mc_4);
 
         setElements();
-
-
 
 
     }
@@ -66,14 +71,22 @@ public class MultipleChoiceVisual extends AppCompatActivity implements View.OnCl
         } else {
             Toast.makeText(this, "wrong", Toast.LENGTH_SHORT).show();
         }
+
+        reportAndStart();
     }
 
     /*set the UI elements and give each button a listener*/
     private void setElements() {
-        qText.setText(mcQuestion.getQuestion().toString());
+        qText.setText(mcQuestion.getQuestion());
         for (int i = 0; i < NUM_BUTTONS; i++) {
             answers[i].setText(mcQuestion.getAnswers().get(i).toString());
             answers[i].setOnClickListener(this);
         }
+    }
+
+    void reportAndStart() {
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("mc_answer", selectedAnswer);
+        startActivity(intent);
     }
 }

@@ -6,4 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".game_ui.TrueFalseVisual">
 
+    <TextView
+        android:id="@+id/tf_textView"
+        android:layout_width="354dp"
+        android:layout_height="88dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="136dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/tf_rg"
+        android:layout_width="179dp"
+        android:layout_height="125dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tf_textView">
+
+        <RadioButton
+            android:id="@+id/tf_rb1"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/true_string"
+            android:textSize="18dp" />
+
+        <RadioButton
+            android:id="@+id/tf_rb2"
+            android:layout_width="117dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/false_string"
+            android:textSize="18dp" />
+    </RadioGroup>
 </android.support.constraint.ConstraintLayout>

@@ -11,11 +11,11 @@ import java.util.Random;
 */
 public class QuizSession {
     /*keeps track of the number of questions in a quiz*/
-    int numQuestions;
+    public int numQuestions;
     /*holds the quiz questions;
     *more specifically, holds the question visuals, which contain references
     *to Question objects*/
-    ArrayList<Question> quizQuestions;
+    public ArrayList<Question> quizQuestions;
     /*Gives quiz a name for display to user*/
     String quizName;
     /*Each quiz has a unique ID for storage purposes*/

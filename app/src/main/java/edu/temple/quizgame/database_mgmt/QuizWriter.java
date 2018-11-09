@@ -1,15 +1,20 @@
 package edu.temple.quizgame.database_mgmt;
 
 import android.content.Context;
+import android.util.Log;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 import edu.temple.quizgame.game_logic.Question;
 import edu.temple.quizgame.game_logic.QuizSession;
+import edu.temple.quizgame.game_logic.TrueFalseQuestion;
 
 
 public class QuizWriter {
+    private static final String TAG = "QuizWriter";
     /*NOTE* Since one quiz can be worked on at time, quizzes should be loaded into some data structure
            for data manipulation. SOLVED see QuizSession.java
            QuizReader.getQuiz() should be the only method that can retrieve a quiz from the quiz data file.
@@ -22,7 +27,7 @@ public class QuizWriter {
         1   Number of questions (int)
         2   Question #1 (multiple choice)
         3   Correct answer
-        4   Other answers (separated by semicolons)
+        4   Other answers (separated by commas)
         5   Question #2 (true/false)
         6   true
         7   false
@@ -35,8 +40,7 @@ public class QuizWriter {
 
     */
 
-    /*  Creates a file of specified size
-        Returns 1 if file was created successfully, -1 otherwise */
+    /* Returns 1 if file was created successfully, -1 otherwise */
     public static int createFile(Context context, String filename) throws IOException {
         FileOutputStream file = context.openFileOutput(filename,Context.MODE_PRIVATE);
         if (file.getFD() != null){
@@ -49,13 +53,18 @@ public class QuizWriter {
 
     /*Writes given data to specified filename*/
     public static void writeToFile(Context context, String filename, String data) {
+
+        FileOutputStream os = null;
         try {
-            FileOutputStream os = context.openFileOutput(filename,Context.MODE_PRIVATE);
+            os = context.openFileOutput(filename,Context.MODE_PRIVATE);
             os.write(data.getBytes());
             os.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            Log.e(TAG,e.toString());
+        } catch (IOException e) {
+            Log.e(TAG,e.toString());
         }
+
 
     }
 
@@ -74,9 +83,18 @@ public class QuizWriter {
         Question curr;
         for (int i = 0; i < num_questions; i++ ){
             curr = quiz.getQuestion(i);
-            data.append(curr.getQuestion()).append("\n");
-            data.append(curr.getCorrectAnswer().toString()).append("\n");
-            data.append(curr.getAnswers().toString().substring(1,curr.getAnswers().toString().length()-1)).append("\n");
+            if (curr instanceof MultipleChoiceQuestion){
+                curr = (MultipleChoiceQuestion) quiz.getQuestion(i);
+                data.append(curr.getQuestion()).append("\n");
+                data.append(curr.getCorrectAnswer().toString()).append("\n");
+                data.append(curr.getAnswers().toString().substring(1,curr.getAnswers().toString().length()-1)).append("\n");
+            }
+            else if (curr instanceof TrueFalseQuestion){
+                curr = (TrueFalseQuestion) quiz.getQuestion(i);
+                data.append(curr.getQuestion()).append("\n");
+                data.append(curr.getCorrectAnswer().toString()).append("\n");
+                data.append(curr.getAnswers().toString().substring(1,curr.getAnswers().toString().length()-1)).append("\n");
+            }
 
         }
         //Write buffer to file

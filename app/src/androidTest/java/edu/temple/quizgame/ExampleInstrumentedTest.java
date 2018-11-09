@@ -12,8 +12,10 @@ import java.util.ArrayList;
 
 import edu.temple.quizgame.database_mgmt.QuizReader;
 import edu.temple.quizgame.database_mgmt.QuizWriter;
+import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 import edu.temple.quizgame.game_logic.Question;
 import edu.temple.quizgame.game_logic.QuizSession;
+import edu.temple.quizgame.game_logic.TrueFalseQuestion;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -48,13 +50,20 @@ public class ExampleInstrumentedTest {
         String quiz_name = "TestQuiz001";
         quiz.setQuizName(quiz_name);
 
-        ArrayList<String> answers = new ArrayList<>();
+        ArrayList<String> mc_answers = new ArrayList<>();
         for(int i = 11; i<14; i++){
-            answers.add("Incorrect Ans = " + i);
+            mc_answers.add("Incorrect Ans = " + i);
         }
-        for(int i = 1; i<6; i++){
-            Question q = new Question<>("Question #" + i, "Correct Ans = " + (i+5) ,answers);
+
+        ArrayList<String> answers = new ArrayList<>();
+        answers.add("true");
+
+        for(int i = 1; i<11; i += 2){
+            Question q = new TrueFalseQuestion("Question #" + i, false ,answers);
             quiz.addQuestion(q);
+            quiz.incrementNumQuestions();
+            Question q2 = new MultipleChoiceQuestion("Question #" + (i+1), "Hello World" ,mc_answers);
+            quiz.addQuestion(q2);
             quiz.incrementNumQuestions();
         }
         QuizWriter.writeQuizToFile(appContext,quiz,quiz.getNumQuestions(),quiz.getID());
@@ -65,14 +74,16 @@ public class ExampleInstrumentedTest {
         //Test 3 getQuiz()
         QuizSession quiz2 = QuizReader.getQuiz(appContext,quiz.getID());
         assertEquals(quiz.getID(),quiz2.getID());
+        assertEquals(10,quiz.getNumQuestions());
+        assertEquals(quiz.getNumQuestions(),quiz2.getNumQuestions());
         for (int i = 0; i < quiz2.getNumQuestions(); i++) {
             assertEquals(quiz.getQuestion(i).getQuestion(), quiz2.getQuestion(i).getQuestion());
             assertEquals("Question #" + (i+1), quiz2.getQuestion(i).getQuestion());
-            for(int j =0; j < 3; j++) {
-                String q1 = (String) quiz.getQuestion(j).getAnswers().get(j);
-                String q2 = (String) quiz2.getQuestion(j).getAnswers().get(j);
-                assertEquals(q1,q2);
-            }
+            for(int j =0; j < 1; j++) {
+                ArrayList a1 = quiz.getQuestion(j).getAnswers();
+                ArrayList a2 = quiz2.getQuestion(j).getAnswers();
+                assertEquals(a1.get(j),a2.get(j));
+                }
         }
 
 

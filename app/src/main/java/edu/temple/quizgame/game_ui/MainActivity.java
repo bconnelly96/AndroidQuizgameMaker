@@ -8,6 +8,11 @@ import android.widget.Button;
 
 import edu.temple.quizgame.R;
 
+/*
+* Launcher activity for the application.
+* Contains two buttons that launch either a game creation activity
+* or a game play activity
+*/
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -33,6 +38,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(playIntent);
             }
         });
-
     }
 }

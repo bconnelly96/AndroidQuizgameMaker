@@ -4,8 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+/*
+* A FragmentPageAdapter for use in the QuestionAdder activity
+* Contains references to a TFAdderFragment and an MCAdderFragment
+* */
 public class AdderAdapter extends FragmentPagerAdapter {
+    // Element 0 in the dataset
     Fragment tfAdderFragment;
+    // Element 1 in the dataset
     Fragment mcAdderFragment;
 
     public AdderAdapter(FragmentManager fm) {
@@ -20,10 +26,10 @@ public class AdderAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int i) {
-        if (i == 0) {
+    public Fragment getItem(int position) {
+        if (position == 0) {
             return tfAdderFragment;
-        } else if (i == 1) {
+        } else if (position == 1) {
             return mcAdderFragment;
         }
         return null;

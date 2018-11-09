@@ -13,6 +13,7 @@ import edu.temple.quizgame.game_logic.QuizSession;
 import edu.temple.quizgame.game_logic.TrueFalseQuestion;
 
 //TODO: note code will not compile until quizSession can be loaded from memory
+
 public class GameActivity extends AppCompatActivity {
     QuizSession quizSession;
     ListView questionList;

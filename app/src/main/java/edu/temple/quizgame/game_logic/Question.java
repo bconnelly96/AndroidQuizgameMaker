@@ -6,16 +6,19 @@ import java.util.ArrayList;
 /*
 * Question serves as a parent class
 * for all of the question-related logic
-* in the application
+* in the application.
+* Question implements the Serializable interface
+* for sending/receiving, loading/saving purposes.
 */
 public class Question<T> implements Serializable {
-    /*Each instance of Question should have a String representing a question*/
+    // Represents the question a user wishes to display
     private String question;
-    /*Each instance of Question should have an associated correct answer*/
+    // Represents the correct answer for a given question
     private T correctAnswer;
-    /*Each instance of Question should have an ArrayList of user-created, potential answers*/
+    // Each instance of Question has a list of possible answers
     private ArrayList<T> answers;
 
+    // public constructor initializes Question object's fields
     public Question(String question, T correctAnswer, ArrayList answers) {
         this.question = question;
         this.correctAnswer = correctAnswer;
@@ -23,7 +26,7 @@ public class Question<T> implements Serializable {
         this.answers = answers;
     }
 
-    /*mutator methods*/
+    // mutator methods
     public String getQuestion() {
         return question;
     }
@@ -40,7 +43,7 @@ public class Question<T> implements Serializable {
         return answers;
     }
 
-    /*returns true if the userAnswer arg. is equal to the Question's correctAnswer var.*/
+    // returns true if the userAnswer arg. is equal to the Question's correctAnswer var.
     public boolean isCorrectAnswer(T userAnswer) {
         return userAnswer == correctAnswer;
     }

@@ -7,14 +7,13 @@ import android.view.View;
 import android.widget.Button;
 
 import edu.temple.quizgame.R;
-import edu.temple.quizgame.game_logic.MainActivity;
 
-public class MainMenu extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
+        setContentView(R.layout.activity_main);
 
         Button createGameButton = (Button) findViewById(R.id.c_g_menu_button);
         Button playGameButton = (Button) findViewById(R.id.p_g_menu_button);
@@ -22,7 +21,7 @@ public class MainMenu extends AppCompatActivity {
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createIntent = new Intent(MainMenu.this, QuestionAdder.class);
+                Intent createIntent = new Intent(MainActivity.this, QuestionAdder.class);
                 startActivity(createIntent);
             }
         });
@@ -30,9 +29,10 @@ public class MainMenu extends AppCompatActivity {
         playGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent playIntent = new Intent(MainMenu.this, GameActivity.class);
+                Intent playIntent = new Intent(MainActivity.this, GameActivity.class);
                 startActivity(playIntent);
             }
         });
+
     }
 }

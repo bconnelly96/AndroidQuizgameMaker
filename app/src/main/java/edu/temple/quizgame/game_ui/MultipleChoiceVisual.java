@@ -6,24 +6,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import edu.temple.quizgame.R;
 import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 
 
 /*This activity receives a Question object via Intent extra,
-* uses it to set its UI elements,
-* waits for user selection,
-* and reports user selection back to the calling activity
+* and uses it to set its UI elements.
+* It waits for user selection,
+* and reports it back to the calling activity.
+* It implements the OnClickListener interface for easy
+* event handling for the Buttons
 * */
 public class MultipleChoiceVisual extends AppCompatActivity implements View.OnClickListener {
-
     private final int NUM_BUTTONS = 4;
 
     String selectedAnswer = "";
-    MultipleChoiceQuestion mcQuestion;
 
+    MultipleChoiceQuestion mcQuestion;
 
     TextView qText;
     Button[] answers = new Button[4];
@@ -43,8 +43,6 @@ public class MultipleChoiceVisual extends AppCompatActivity implements View.OnCl
         answers[3] = findViewById(R.id.mc_4);
 
         setElements();
-
-
     }
 
     @Override
@@ -65,17 +63,10 @@ public class MultipleChoiceVisual extends AppCompatActivity implements View.OnCl
             default:
                 break;
         }
-
-        if (selectedAnswer.equals(mcQuestion.getCorrectAnswer())) {
-            Toast.makeText(this, "correct", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "wrong", Toast.LENGTH_SHORT).show();
-        }
-
         reportAndStart();
     }
 
-    /*set the UI elements and give each button a listener*/
+    // sets the UI elements and give each button a listener
     private void setElements() {
         qText.setText(mcQuestion.getQuestion());
         for (int i = 0; i < NUM_BUTTONS; i++) {
@@ -84,6 +75,9 @@ public class MultipleChoiceVisual extends AppCompatActivity implements View.OnCl
         }
     }
 
+    /*Creates a new Intent.
+     *Sends user's selected answer back to original starting activity via Extra.
+     *Starts starting activity.*/
     void reportAndStart() {
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("mc_answer", selectedAnswer);

@@ -16,14 +16,13 @@ public class Question<T> implements Serializable {
     // Represents the correct answer for a given question
     private T correctAnswer;
     // Each instance of Question has a list of possible answers
-    private ArrayList<T> answers;
+    private T answer;
 
     // public constructor initializes Question object's fields
-    public Question(String question, T correctAnswer, ArrayList answers) {
+    public Question(String question, T correctAnswer, T answer) {
         this.question = question;
         this.correctAnswer = correctAnswer;
-        this.answers = new ArrayList();
-        this.answers = answers;
+        this.answer = answer;
     }
 
     // mutator methods
@@ -39,8 +38,8 @@ public class Question<T> implements Serializable {
     public void setCorrectAnswer(T correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
-    public ArrayList getAnswers() {
-        return answers;
+    public T getAnswer() {
+        return answer;
     }
 
     // returns true if the userAnswer arg. is equal to the Question's correctAnswer var.

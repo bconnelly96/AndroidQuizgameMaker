@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import edu.temple.quizgame.R;
+import edu.temple.quizgame.game_logic.Question;
 import edu.temple.quizgame.game_logic.QuizSession;
 import edu.temple.quizgame.game_logic.TrueFalseQuestion;
 
@@ -16,12 +17,19 @@ import edu.temple.quizgame.game_logic.TrueFalseQuestion;
 
 public class GameActivity extends AppCompatActivity {
     QuizSession quizSession;
+
     ListView questionList;
+
+    int numCompletedQuestions = 0;
+    int numCorrectQuestions = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        //TODO: load quizSession here, before setting adapter
 
         questionList = findViewById(R.id.q_select_list);
         QListAdapter adapter = new QListAdapter(this, listContents());
@@ -30,37 +38,26 @@ public class GameActivity extends AppCompatActivity {
         questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent, recIntent;
-                Bundle args;
-                if (quizSession.quizQuestions.get(position) instanceof TrueFalseQuestion) {
-                    intent = new Intent(GameActivity.this, TrueFalseVisual.class);
-                    intent.putExtra("tf_obj", quizSession.quizQuestions.get(position));
-                    startActivity(intent);
-
-                    args = getIntent().getExtras();
-                    boolean answer = args.getBoolean("tf_answer");
+                Question question = quizSession.quizQuestions.get(position);
+                if (question instanceof TrueFalseQuestion) {
+                    TrueFalseQuestion temp = (TrueFalseQuestion) question;
+                    //start TrueFalseVisual activity
                 } else {
-                    intent = new Intent(GameActivity.this, MultipleChoiceVisual.class);
-                    intent.putExtra("mc_obj", quizSession.quizQuestions.get(position));
-                    startActivity(intent);
-
-                    args = getIntent().getExtras();
-                    String answer = args.getString("mc_answer");
-
 
                 }
+
             }
         });
-
-
     }
 
-    private String [] listContents() {
-        String[] listContents = new String[quizSession.numQuestions];
+    /*Returns a String array, where each index contains
+    *the questions from the Question objects found in the ArrayList
+    *quizQuestions in GameActivity's quizSession object*/
+    private String[] listContents() {
+        String [] lContents = new String[quizSession.numQuestions];
         for (int i = 0; i < quizSession.numQuestions; i++) {
-            listContents[i] = "Question " + Integer.toString(i);
+            lContents[i] = quizSession.quizQuestions.get(i).getQuestion();
         }
-        return listContents;
+        return lContents;
     }
-
 }

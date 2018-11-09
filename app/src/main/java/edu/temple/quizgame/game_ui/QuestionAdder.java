@@ -4,12 +4,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import edu.temple.quizgame.R;
 
-public class QuestionAdder extends AppCompatActivity {
+
+public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.TFInterface, MCAdderFragment.MCInterface {
 
     AdderAdapter adderAdapter;
     ViewPager viewPager;
@@ -17,6 +20,7 @@ public class QuestionAdder extends AppCompatActivity {
     Button done;
     Button next;
     EditText qName;
+    TextView instruction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,7 @@ public class QuestionAdder extends AppCompatActivity {
         next = findViewById(R.id.next_b);
         qName = findViewById(R.id.name_et);
         viewPager = findViewById(R.id.viewPager);
+        instruction = findViewById(R.id.instruction);
 
         FragmentManager fm = getSupportFragmentManager();
         adderAdapter = new AdderAdapter(fm);
@@ -51,5 +56,44 @@ public class QuestionAdder extends AppCompatActivity {
 
             }
         });
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    @Override
+    public void sendMCQ(String question) {
+
+    }
+
+    @Override
+    public void sendMCAnswers(String[] answers) {
+
+    }
+
+    @Override
+    public void sendMCCorrect(String correctAnswer) {
+
+    }
+
+    @Override
+    public void sendTFQ(String question) {
+
+    }
+
+    @Override
+    public void sendTFCorrect(boolean answer) {
+
     }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="done_b" type="id" />
+    <item name="next_b" type="id" />
+    <item name="name_et" type="id" />
+    <item name="instruction" type="id" />
+</resources>

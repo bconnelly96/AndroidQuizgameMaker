@@ -69,7 +69,7 @@ public class QuizWriter {
     }
 
     /*Writes given quiz to its appropriate file */
-    public static void writeQuizToFile(Context context, QuizSession quiz, int num_questions, long id) throws IOException {
+    public static void writeQuizToFile(Context context, QuizSession quiz, int num_questions) throws IOException {
 
         //check to make sure quiz is not null
         if (quiz == null){
@@ -87,18 +87,18 @@ public class QuizWriter {
                 curr = (MultipleChoiceQuestion) quiz.getQuestion(i);
                 data.append(curr.getQuestion()).append("\n");
                 data.append(curr.getCorrectAnswer().toString()).append("\n");
-                data.append(curr.getAnswers().toString().substring(1,curr.getAnswers().toString().length()-1)).append("\n");
+                data.append(curr.getAnswer().toString().substring(1,curr.getAnswer().toString().length()-1)).append("\n");
             }
             else if (curr instanceof TrueFalseQuestion){
                 curr = (TrueFalseQuestion) quiz.getQuestion(i);
                 data.append(curr.getQuestion()).append("\n");
                 data.append(curr.getCorrectAnswer().toString()).append("\n");
-                data.append(curr.getAnswers().toString().substring(1,curr.getAnswers().toString().length()-1)).append("\n");
+                data.append(curr.getAnswer().toString().substring(1,curr.getAnswer().toString().length()-1)).append("\n");
             }
 
         }
         //Write buffer to file
-        writeToFile(context,id + ".dat",data.toString());
+        writeToFile(context,quiz.getQuizName() + ".dat",data.toString());
 
     }
 

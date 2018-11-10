@@ -71,10 +71,10 @@ public class QuizReader {
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static QuizSession getQuiz(Context context, long id)  {
+    public static QuizSession getQuiz(Context context, String quiz_name)  {
 
         //Load quiz data to a list
-        ArrayList<String> quiz_text = read_file(context, id + ".dat");
+        ArrayList<String> quiz_text = read_file(context, quiz_name + ".dat");
         //Create arraylist for Question objects
         QuizSession quiz = new QuizSession();
         Question curr;
@@ -96,7 +96,6 @@ public class QuizReader {
             }
         }
         quiz.setQuizName(quiz_text.get(0));
-        quiz.setManualID(id);
 
         return quiz;
     }

@@ -72,28 +72,44 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
         });
     }
 
-    @Override
+
     public void sendMCQ(String question) {
 
     }
 
-    @Override
     public void sendMCAnswers(String[] answers) {
 
     }
 
-    @Override
     public void sendMCCorrect(String correctAnswer) {
 
     }
 
-    @Override
     public void sendTFQ(String question) {
 
     }
 
-    @Override
     public void sendTFCorrect(boolean answer) {
+
+    }
+
+    @Override
+    public void sendAnswers(String[] answers) {
+
+    }
+
+    @Override
+    public void sendCorrect(String correctAnswer) {
+
+    }
+
+    @Override
+    public void sendQ(String question) {
+
+    }
+
+    @Override
+    public void sendAnswer(boolean answer) {
 
     }
 }

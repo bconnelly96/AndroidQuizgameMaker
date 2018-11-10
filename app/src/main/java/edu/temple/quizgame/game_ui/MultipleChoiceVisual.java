@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import edu.temple.quizgame.R;
 import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 
@@ -70,7 +72,7 @@ public class MultipleChoiceVisual extends AppCompatActivity implements View.OnCl
     private void setElements() {
         qText.setText(mcQuestion.getQuestion());
         for (int i = 0; i < NUM_BUTTONS; i++) {
-            answers[i].setText(mcQuestion.getAnswers().get(i).toString());
+            answers[i].setText(((ArrayList)mcQuestion.getAnswer()).get(i).toString());
             answers[i].setOnClickListener(this);
         }
     }

@@ -66,22 +66,22 @@ public class ExampleInstrumentedTest {
             quiz.addQuestion(q2);
             quiz.incrementNumQuestions();
         }
-        QuizWriter.writeQuizToFile(appContext,quiz,quiz.getNumQuestions(),quiz.getID());
+        QuizWriter.writeQuizToFile(appContext,quiz,quiz.getNumQuestions());
 
-        ArrayList<String> text = QuizReader.read_file(appContext,quiz.getID()+".dat");
+        ArrayList<String> text = QuizReader.read_file(appContext,quiz.getQuizName()+".dat");
         assertEquals(quiz_name,text.get(0));
 
         //Test 3 getQuiz()
-        QuizSession quiz2 = QuizReader.getQuiz(appContext,quiz.getID());
-        assertEquals(quiz.getID(),quiz2.getID());
+        QuizSession quiz2 = QuizReader.getQuiz(appContext,quiz.getQuizName());
+        assertEquals(quiz.getQuizName(),quiz2.getQuizName());
         assertEquals(10,quiz.getNumQuestions());
         assertEquals(quiz.getNumQuestions(),quiz2.getNumQuestions());
         for (int i = 0; i < quiz2.getNumQuestions(); i++) {
             assertEquals(quiz.getQuestion(i).getQuestion(), quiz2.getQuestion(i).getQuestion());
             assertEquals("Question #" + (i+1), quiz2.getQuestion(i).getQuestion());
             for(int j =0; j < 1; j++) {
-                ArrayList a1 = quiz.getQuestion(j).getAnswers();
-                ArrayList a2 = quiz2.getQuestion(j).getAnswers();
+                ArrayList a1 = (ArrayList) quiz.getQuestion(j).getAnswer();
+                ArrayList a2 = (ArrayList) quiz2.getQuestion(j).getAnswer();
                 assertEquals(a1.get(j),a2.get(j));
                 }
         }

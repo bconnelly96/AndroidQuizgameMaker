@@ -1,69 +1,88 @@
 package edu.temple.quizgame.game_ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import edu.temple.quizgame.game_logic.*;
 
 import java.util.ArrayList;
 
 import edu.temple.quizgame.R;
+import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 
-public class MultipleChoiceVisual extends AppCompatActivity {
-    final int NUM_BUTTONS = 4;
-    /*Each Multiple choice question has four possible answers and thus four possible answerButtons*/
-    Button[] answerButtons = new Button[4];
-    /*For display of a question*/
-    TextView questionTextView;
-    /*Reference to the question's logical attributes*/
-    MultipleChoiceQuestion mCQuestionRef;
+
+/*This activity receives a Question object via Intent extra,
+ * and uses it to set its UI elements.
+ * It waits for user selection,
+ * and reports it back to the calling activity.
+ * It implements the OnClickListener interface for easy
+ * event handling for the Buttons
+ * */
+public class MultipleChoiceVisual extends AppCompatActivity implements View.OnClickListener {
+    private final int NUM_BUTTONS = 4;
+
+    String selectedAnswer = "";
+
+    MultipleChoiceQuestion mcQuestion;
+
+    TextView qText;
+    Button[] answers = new Button[4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_multiple_choice);
+        setContentView(R.layout.activity_multiple_choice_visual);
+
+        Intent qIntent = getIntent();
+        mcQuestion = (MultipleChoiceQuestion) qIntent.getSerializableExtra("mc_obj");
+
+        qText = findViewById(R.id.mc_textView);
+        answers[0] = findViewById(R.id.mc_1);
+        answers[1] = findViewById(R.id.mc_2);
+        answers[2] = findViewById(R.id.mc_3);
+        answers[3] = findViewById(R.id.mc_4);
+
+        setElements();
     }
 
-    /*public constructor initializes UI element objects and the M-C Question reference*/
-    public MultipleChoiceVisual(MultipleChoiceQuestion mcQuestionRef) {
-        questionTextView = findViewById(R.id.mc_textView);
-        answerButtons[0] = findViewById(R.id.mc_button1);
-        answerButtons[1] = findViewById(R.id.mc_button2);
-        answerButtons[2] = findViewById(R.id.mc_button3);
-        answerButtons[3] = findViewById(R.id.mc_button4);
-        this.mCQuestionRef = mcQuestionRef;
-    }
-
-    /*sets the question UI element*/
-    public void setQuestionText(String stringToDisplay) {
-        questionTextView.setText(stringToDisplay);
-    }
-
-    /*sets the multiple choice button UI elements*/
-    public void setButtonText(String ... stringsToDisplay) {
-        for(int i = 0; i < NUM_BUTTONS; i++) {
-            answerButtons[i].setText(stringsToDisplay[i]);
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.mc_1:
+                selectedAnswer = answers[0].getText().toString();
+                break;
+            case R.id.mc_2:
+                selectedAnswer = answers[1].getText().toString();
+                break;
+            case R.id.mc_3:
+                selectedAnswer = answers[2].getText().toString();
+                break;
+            case R.id.mc_4:
+                selectedAnswer = answers[3].getText().toString();
+                break;
+            default:
+                break;
         }
+        reportAndStart();
     }
 
-    //TODO: finish this method
-    /*retrieves & returns the user's selection from the answer buttons*/
-    public String getUserChoice() {
-        /*String userChoice = "";
-
+    // sets the UI elements and give each button a listener
+    private void setElements() {
+        qText.setText(mcQuestion.getQuestion());
         for (int i = 0; i < NUM_BUTTONS; i++) {
-            final int j = i;
-            answerButtons[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    userChoice = answerButtons[i].getText();
-                }
-            });
+            answers[i].setText(((ArrayList)mcQuestion.getAnswer()).get(i).toString());
+            answers[i].setOnClickListener(this);
         }
-        return userChoice; */
-        return null;
     }
 
+    /*Creates a new Intent.
+     *Sends user's selected answer back to original starting activity via Extra.
+     *Starts starting activity.*/
+    void reportAndStart() {
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("mc_answer", selectedAnswer);
+        startActivity(intent);
+    }
 }

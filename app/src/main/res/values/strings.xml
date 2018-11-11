@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Quiz Game</string>
+    <string name="create_game_button">Create A New Game</string>
+    <string name="play_game_button">Play An Existing Game</string>
+    <string name="true_string">True</string>
+    <string name="false_string">False</string>
+    <string name="next_question">Next Question</string>
+    <string name="done_string">Done</string>
+    <string name="answer_1">Answer 1:</string>
+    <string name="answer_2">Answer 2:</string>
+    <string name="answer_3">Answer 3: </string>
+    <string name="answer_4">Answer 4: </string>
+    <string name="enter_question">Enter Question</string>
+    <string name="quiz_name">Quiz Name</string>
+    <string name="answer_true_false">Answer value</string>
+    <string name="empty_field">One or More Fields is Empty</string>
+    <string name="true_false_question">True/False Question</string>
+    <string name="multiple_choice_question">Multiple Choice Question</string>
+    <string name="next_string">Next Question</string>
+    <string name="prev_string">Previous Question</string>
+    <string name="swipe_string">Swipe to Change Question Type</string>
 </resources>

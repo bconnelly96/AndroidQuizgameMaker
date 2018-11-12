@@ -38,12 +38,40 @@ public class GameActivity extends AppCompatActivity {
         questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Question question = quizSession.quizQuestions.get(position);
-                if (question instanceof TrueFalseQuestion) {
-                    TrueFalseQuestion temp = (TrueFalseQuestion) question;
-                    //start TrueFalseVisual activity
-                } else {
-
+                Question question = quizSession.quizQuestions.get(position)
+                if(numCompletedQuestions < quizSession.numQuestions){
+                    if(question instanceof TrueFalseQuestion){
+                        TrueFalseQuestion temp = (TrueFalseQuestion) question;
+                        Intent intent = new Intent(GameActivity.this, TrueFalseVisual.class);
+                        intent.putExtra("tf_obj", question);
+                        startActivity(intent);
+                    }
+                    else{
+                        MultipleChoiceQuestion temp = (MultipleChoiceQuestion) question;
+                        Intent intent = new Intent(GameAcvtivity.this, MultipleChoiceVisual.class);
+                        intent.putExtra("mc_obj", question);
+                        startActivity(intent);
+                    }
+                    Intent newintent = getIntent();
+                    if(question instanceof TrueFalseQuestion){
+                        boolean b = newintent.getBooleanExtra("tf_answer");
+                        if(b == quizSession.quizQuestions.get(position).getAnswers()){
+                            numCorrectQuestions++;
+                        }
+                    }
+                    else{
+                        String s = newintent.getStringExtra("mc_answer");
+                        if(s == quizSession.quizQuestions.get(position).getAnswers()){
+                            numCorrectQuestions++;
+                        }
+                    }
+                    numCompletedQuestions++;
+                }
+                else{
+                    Intent intent3 = new Intent(GameActivity.this, EndMenu.class);
+                    intent3.putExtra("num_Correct_Questions", numCorrectQuestions);
+                    intent3.putExtra("num_Questions", quizSession.numQuestions);
+                    startActivity(intent3);
                 }
 
             }

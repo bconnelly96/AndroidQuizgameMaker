@@ -6,9 +6,11 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -67,6 +69,18 @@ public class QuizReader {
             Log.e(TAG,e.toString());
         }
         return file_content;
+    }
+
+    public static String getQuizList(Context context){
+
+        File dir = new File(String.valueOf(context.getFilesDir()));
+        String[] files = dir.list();
+        StringBuilder list = new StringBuilder();
+        for (int i = 0; i < files.length; i++){
+            list.append(files[i].substring(0,files[i].length()-4)).append("\n"); //-4 = ".dat"
+        }
+
+        return list.toString();
     }
 
 

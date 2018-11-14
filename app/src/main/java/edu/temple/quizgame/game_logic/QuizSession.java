@@ -3,11 +3,11 @@ package edu.temple.quizgame.game_logic;
 import java.util.ArrayList;
 
 /*
-*QuizSession objects tie together
-*the logic components of a quiz.
-*They are the objects that are to be saved
-*in the public directory of a user's phone
-*/
+ *QuizSession objects tie together
+ *the logic components of a quiz.
+ *They are the objects that are to be saved
+ *in the public directory of a user's phone
+ */
 public class QuizSession {
     // keeps track of the number of questions in a quiz
     public int numQuestions;
@@ -35,4 +35,17 @@ public class QuizSession {
     public void setQuizName(String quizName) {
         this.quizName = quizName;
     }
+    //Added methods by Joshee
+    public Question getQuestion(int i) {
+        return quizQuestions.get(i);
+    }
+
+    public String getQuizName() {
+        return quizName;
+    }
+
+    public int getNumQuestions() {
+        return numQuestions;
+    }
+
 }

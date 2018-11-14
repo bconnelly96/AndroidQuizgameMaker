@@ -1,7 +1,7 @@
 package edu.temple.quizgame.game_ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import edu.temple.quizgame.R;
 

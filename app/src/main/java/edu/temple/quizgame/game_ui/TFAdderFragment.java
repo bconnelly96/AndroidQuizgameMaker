@@ -49,7 +49,7 @@ public class TFAdderFragment extends Fragment {
 
     public interface TFInterface {
         void sendTFQ(String question);
-        void sendTFCorrect(boolean answer);
+        void sendTFCorrect(boolean correctAnswer);
     }
 
     /*Called by parent when next button is clicked (user wishes to submit current question)

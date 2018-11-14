@@ -22,6 +22,10 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
     EditText qName;
     TextView instruction;
 
+    private String question;
+    private boolean tfCorrect;
+    private String mcCorrect;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +64,7 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                
             }
         });
 
@@ -74,9 +78,10 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
 
     @Override
     public void sendMCQ(String question) {
-
+        this.question = question;
     }
 
+    //TODO: implement method; alter Question code
     @Override
     public void sendMCAnswers(String[] answers) {
 
@@ -84,16 +89,16 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
 
     @Override
     public void sendMCCorrect(String correctAnswer) {
-
+        this.mcCorrect = correctAnswer;
     }
 
     @Override
     public void sendTFQ(String question) {
-
+        this.question = question;
     }
 
     @Override
-    public void sendTFCorrect(boolean answer) {
-
+    public void sendTFCorrect(boolean correctAnswer) {
+        this.tfCorrect = correctAnswer;
     }
 }

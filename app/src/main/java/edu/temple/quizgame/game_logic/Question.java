@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /*
-* Question serves as a parent class
-* for all of the question-related logic
-* in the application.
-* Question implements the Serializable interface
-* for sending/receiving, loading/saving purposes.
-*/
+ * Question serves as a parent class
+ * for all of the question-related logic
+ * in the application.
+ * Question implements the Serializable interface
+ * for sending/receiving, loading/saving purposes.
+ */
 public class Question<T> implements Serializable {
     // Represents the question a user wishes to display
     private String question;

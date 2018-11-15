@@ -49,7 +49,7 @@ public class TFAdderFragment extends Fragment {
 
     public interface TFInterface {
         void sendTFQ(String question);
-        void sendTFCorrect(boolean answer);
+        void sendTFCorrect(boolean correctAnswer);
     }
 
     /*Called by parent when next button is clicked (user wishes to submit current question)
@@ -81,7 +81,9 @@ public class TFAdderFragment extends Fragment {
 
     /*Returns true if some RadioButton has been selected
     *and the EditText element for the question is not blank*/
-    boolean allFieldsValid() {
+
+     public boolean allFieldsValid() {
+
         if ((correct.getCheckedRadioButtonId() != -1) && !(getQuestion().equals(EMPTY_FIELD))) {
             return true;
         }

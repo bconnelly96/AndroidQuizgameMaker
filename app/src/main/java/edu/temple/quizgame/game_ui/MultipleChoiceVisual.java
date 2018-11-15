@@ -23,6 +23,7 @@ import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
  * event handling for the Buttons
  * */
 
+
 public class MultipleChoiceVisual extends AppCompatActivity implements View.OnClickListener {
     private final int NUM_BUTTONS = 4;
 

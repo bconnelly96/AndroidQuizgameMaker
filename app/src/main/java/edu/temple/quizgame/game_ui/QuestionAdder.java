@@ -28,6 +28,7 @@ import edu.temple.quizgame.game_logic.TrueFalseQuestion;
  *It builds the QuizSession object to be saved to the user's device when
  *the done Button is clicked.
  */
+
 //TODO: save the quiz to the device when the done button is clicked
 public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.TFInterface, MCAdderFragment.MCInterface {
     private final String ADDED = "Question Added to Quiz";
@@ -97,6 +98,7 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
                         makeToast(INVALID);
                     }
                     // if the user is currently editing a MC question
+                // if the user is currently editing a MC question
                 } else {
                     MCAdderFragment mFrag = (MCAdderFragment) adderAdapter.getItem(1);
                     // question added if nextClicked() returns true (data is valid)
@@ -127,6 +129,8 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
                         }
                     }
                     // if the user is currently editing a T/F question
+                // if the user is currently editing a T/F question
+
                 } else {
                     MCAdderFragment mFrag = (MCAdderFragment) adderAdapter.getItem(1);
                     // add question to quiz if some data has been entered before next button has been clicked
@@ -181,6 +185,8 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
         quizSession.addQuestion(tfq);
         quizSession.incrementNumQuestions();
         makeToast(ADDED);
+
+
     }
 
     // Adds a MultipleChoiceQuestion object to and updates the QuizSession object

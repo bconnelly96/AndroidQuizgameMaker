@@ -1,5 +1,6 @@
 package edu.temple.quizgame.game_ui;
 
+import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -86,7 +87,6 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: review line 79
                 // if the user is currently editing a T/F question
                 if (viewPager.getCurrentItem() == 0) {
                     TFAdderFragment tFrag = (TFAdderFragment) adderAdapter.getItem(0);
@@ -112,7 +112,6 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: review line 98
                 // if the user is currently editing a MC question
                 if (viewPager.getCurrentItem() == 0) {
                     TFAdderFragment tFrag = (TFAdderFragment) adderAdapter.getItem(0);
@@ -122,6 +121,8 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
                             addTFToQuiz();
                             quizSession.setQuizName(quizName.getText().toString());
                             makeToast(CREATED);
+                            Intent intent = new Intent(QuestionAdder.this, MainActivity.class);
+                            startActivity(intent);
                         } else {
                             makeToast(INVALID);
                         }
@@ -135,6 +136,8 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
                             addMCToQuiz();
                             quizSession.setQuizName(quizName.getText().toString());
                             makeToast(CREATED);
+                            Intent intent = new Intent(QuestionAdder.this, MainActivity.class);
+                            startActivity(intent);
                         } else {
                             makeToast(INVALID);
                         }
@@ -172,7 +175,7 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
 
     // Makes a toast to the user msg as the display text
     private void makeToast(String msg) {
-        Toast.makeText(QuestionAdder.this, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(QuestionAdder.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     // Adds a TrueFalseQuestion object to and updates the QuizSession object

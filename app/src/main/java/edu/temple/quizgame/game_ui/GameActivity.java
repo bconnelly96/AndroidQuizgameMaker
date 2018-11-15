@@ -38,13 +38,7 @@ public class GameActivity extends AppCompatActivity {
         questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Question question = quizSession.quizQuestions.get(position);
-                if (question instanceof TrueFalseQuestion) {
-                    TrueFalseQuestion temp = (TrueFalseQuestion) question;
-                    //start TrueFalseVisual activity
-                } else {
 
-                }
 
             }
         });

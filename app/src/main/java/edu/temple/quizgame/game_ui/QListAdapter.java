@@ -41,6 +41,4 @@ public class QListAdapter extends BaseAdapter {
         textView.setText(questionList[position]);
         return convertView;
     }
-
-
 }

@@ -20,7 +20,8 @@
         <activity android:name=".game_ui.QuestionAdder" />
         <activity android:name=".game_ui.GameActivity" />
         <activity android:name=".game_ui.MultipleChoiceVisual" />
-        <activity android:name=".game_ui.TrueFalseVisual"></activity>
+        <activity android:name=".game_ui.TrueFalseVisual" />
+        <activity android:name=".game_ui.QuizPicker"></activity>
     </application>
 
 </manifest>

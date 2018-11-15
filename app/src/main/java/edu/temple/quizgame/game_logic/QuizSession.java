@@ -1,5 +1,6 @@
 package edu.temple.quizgame.game_logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /*
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  *They are the objects that are to be saved
  *in the public directory of a user's phone
  */
-public class QuizSession {
+public class QuizSession implements Serializable {
     // keeps track of the number of questions in a quiz
     public int numQuestions;
     // holds references to Question objects

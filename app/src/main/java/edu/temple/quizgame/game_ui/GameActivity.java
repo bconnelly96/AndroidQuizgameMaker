@@ -27,7 +27,9 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //TODO: load quizSession here, before setting adapter
+        // Bring quizSession object from QuizPicker activity into memory
+        Intent qsIntent = getIntent();
+        quizSession = (QuizSession) qsIntent.getSerializableExtra("selected_quiz");
 
         questionList = findViewById(R.id.q_select_list);
         QListAdapter adapter = new QListAdapter(this, listContents());

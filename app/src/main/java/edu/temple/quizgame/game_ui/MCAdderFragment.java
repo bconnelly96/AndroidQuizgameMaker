@@ -55,18 +55,18 @@ public class MCAdderFragment extends Fragment {
     }
 
     public interface MCInterface {
-        void sendQ(String question);
-        void sendAnswers(String[] answers);
-        void sendCorrect(String correctAnswer);
+        void sendMCQ(String question);
+        void sendMCAnswers(String[] answers);
+        void sendMCCorrect(String correctAnswer);
     }
 
     /*Sends question data to the parent if its next button has been clicked
     * returns true if user has entered valid input for each field*/
     public boolean nextClicked() {
         if (allFieldsValid()) {
-            MCListener.sendAnswers(getAnswers());
-            MCListener.sendQ(getQuestion());
-            MCListener.sendCorrect(getCorrectAnswer());
+            MCListener.sendMCAnswers(getAnswers());
+            MCListener.sendMCQ(getQuestion());
+            MCListener.sendMCCorrect(getCorrectAnswer());
             clearFields();
             return true;
         }
@@ -77,9 +77,9 @@ public class MCAdderFragment extends Fragment {
     public boolean doneClicked() {
         if (allFieldsValid() || allFieldsBlank()) {
             if (allFieldsValid()) {
-                MCListener.sendQ(getQuestion());
-                MCListener.sendAnswers(getAnswers());
-                MCListener.sendCorrect(getCorrectAnswer());
+                MCListener.sendMCQ(getQuestion());
+                MCListener.sendMCAnswers(getAnswers());
+                MCListener.sendMCCorrect(getCorrectAnswer());
             }
             return true;
         }
@@ -88,7 +88,7 @@ public class MCAdderFragment extends Fragment {
 
     /*Returns true if all answer options have been set,
     *and a correct answer and question have been set.*/
-    private boolean allFieldsValid() {
+    boolean allFieldsValid() {
         boolean retVal = true;
         for (int i = 0; i < NUM_ANSWERS; i++) {
             if (answers[i].getText().toString().equals(EMPTY_FIELD)) {

@@ -5,4 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".game_ui.EndMenu">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="188dp"
+        android:layout_height="52dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="123dp" />
 </android.support.constraint.ConstraintLayout>

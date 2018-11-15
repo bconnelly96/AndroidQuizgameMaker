@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import edu.temple.quizgame.R;
+import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 import edu.temple.quizgame.game_logic.Question;
 import edu.temple.quizgame.game_logic.QuizSession;
 import edu.temple.quizgame.game_logic.TrueFalseQuestion;
@@ -39,7 +40,41 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
+                Question question = quizSession.quizQuestions.get(position);
+                if(numCompletedQuestions < quizSession.numQuestions){
+                    if(question instanceof TrueFalseQuestion){
+                        TrueFalseQuestion temp = (TrueFalseQuestion) question;
+                        Intent intent = new Intent(GameActivity.this, TrueFalseVisual.class);
+                        intent.putExtra("tf_obj", question);
+                        startActivity(intent);
+                    }
+                    else{
+                        MultipleChoiceQuestion temp = (MultipleChoiceQuestion) question;
+                        Intent intent = new Intent(GameActivity.this, MultipleChoiceVisual.class);
+                        intent.putExtra("mc_obj", question);
+                        startActivity(intent);
+                    }
+                    Intent newintent = getIntent();
+                    if(question instanceof TrueFalseQuestion){
+                        boolean b = newintent.getBooleanExtra("tf_answer", false);
+                        if(b == (boolean) quizSession.quizQuestions.get(position).getCorrectAnswer()){
+                            numCorrectQuestions++;
+                        }
+                    }
+                    else{
+                        String s = newintent.getStringExtra("mc_answer");
+                        if(s.equals(quizSession.quizQuestions.get(position).getCorrectAnswer())){
+                            numCorrectQuestions++;
+                        }
+                    }
+                    numCompletedQuestions++;
+                }
+                else{
+                    Intent intent3 = new Intent(GameActivity.this, EndMenu.class);
+                    intent3.putExtra("num_Correct_Questions", numCorrectQuestions);
+                    intent3.putExtra("num_Questions", quizSession.numQuestions);
+                    startActivity(intent3);
+                }
             }
         });
     }

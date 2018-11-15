@@ -81,9 +81,7 @@ public class TFAdderFragment extends Fragment {
 
     /*Returns true if some RadioButton has been selected
     *and the EditText element for the question is not blank*/
-
      public boolean allFieldsValid() {
-
         if ((correct.getCheckedRadioButtonId() != -1) && !(getQuestion().equals(EMPTY_FIELD))) {
             return true;
         }

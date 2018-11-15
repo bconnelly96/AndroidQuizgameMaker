@@ -1,34 +1,37 @@
 package edu.temple.quizgame.game_ui;
 
+import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import edu.temple.quizgame.R;
+import edu.temple.quizgame.database_mgmt.QuizWriter;
 import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 import edu.temple.quizgame.game_logic.QuizSession;
 import edu.temple.quizgame.game_logic.TrueFalseQuestion;
 
 /*
- *Parent Activity of the TFAdderFragment and MCAdderFragment fragments.
- *Both fragments are contained within the Activity's ViewPager.
- *The Activity sends the fragments a notification when the next Button is clicked,
- *indicating a user wishes to create a new question.
- *The activity receives values to build a Question object if valid
- *values can be retrieved from the UI elements found in the active fragment
- *by implementing interfaces found in the two fragments.
- *It builds the QuizSession object to be saved to the user's device when
- *the done Button is clicked.
- */
-
+*Parent Activity of the TFAdderFragment and MCAdderFragment fragments.
+*Both fragments are contained within the Activity's ViewPager.
+*The Activity sends the fragments a notification when the next Button is clicked,
+*indicating a user wishes to create a new question.
+*The activity receives values to build a Question object if valid
+*values can be retrieved from the UI elements found in the active fragment
+*by implementing interfaces found in the two fragments.
+*It builds the QuizSession object to be saved to the user's device when
+*the done Button is clicked.
+*/
 //TODO: save the quiz to the device when the done button is clicked
 public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.TFInterface, MCAdderFragment.MCInterface {
     private final String ADDED = "Question Added to Quiz";
@@ -87,7 +90,6 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: review line 79
                 // if the user is currently editing a T/F question
                 if (viewPager.getCurrentItem() == 0) {
                     TFAdderFragment tFrag = (TFAdderFragment) adderAdapter.getItem(0);
@@ -97,7 +99,6 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
                     } else {
                         makeToast(INVALID);
                     }
-                    // if the user is currently editing a MC question
                 // if the user is currently editing a MC question
                 } else {
                     MCAdderFragment mFrag = (MCAdderFragment) adderAdapter.getItem(1);
@@ -114,7 +115,6 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: review line 98
                 // if the user is currently editing a MC question
                 if (viewPager.getCurrentItem() == 0) {
                     TFAdderFragment tFrag = (TFAdderFragment) adderAdapter.getItem(0);
@@ -123,14 +123,23 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
                         if (tFrag.allFieldsValid()) {
                             addTFToQuiz();
                             quizSession.setQuizName(quizName.getText().toString());
+
+                            //Code added by Joshee
+                            try {
+                                QuizWriter.writeQuizToFile(getApplicationContext(),quizSession,quizSession.getNumQuestions());
+                            } catch (IOException e) {
+                                Log.e(QuizWriter.TAG,e.toString());
+                            }
+                            //End code added by Joshee
+
                             makeToast(CREATED);
+                            Intent intent = new Intent(QuestionAdder.this, MainActivity.class);
+                            startActivity(intent);
                         } else {
                             makeToast(INVALID);
                         }
                     }
-                    // if the user is currently editing a T/F question
                 // if the user is currently editing a T/F question
-
                 } else {
                     MCAdderFragment mFrag = (MCAdderFragment) adderAdapter.getItem(1);
                     // add question to quiz if some data has been entered before next button has been clicked
@@ -138,7 +147,18 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
                         if (mFrag.allFieldsValid()) {
                             addMCToQuiz();
                             quizSession.setQuizName(quizName.getText().toString());
+
+                            //Code added by Joshee
+                            try {
+                                QuizWriter.writeQuizToFile(getApplicationContext(),quizSession,quizSession.getNumQuestions());
+                            } catch (IOException e) {
+                                Log.e(QuizWriter.TAG,e.toString());
+                            }
+                            //End code added by Joshee
+
                             makeToast(CREATED);
+                            Intent intent = new Intent(QuestionAdder.this, MainActivity.class);
+                            startActivity(intent);
                         } else {
                             makeToast(INVALID);
                         }
@@ -176,17 +196,15 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
 
     // Makes a toast to the user msg as the display text
     private void makeToast(String msg) {
-        Toast.makeText(QuestionAdder.this, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(QuestionAdder.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     // Adds a TrueFalseQuestion object to and updates the QuizSession object
     private void addTFToQuiz() {
-        TrueFalseQuestion tfq = new TrueFalseQuestion(tfQuestion, tfCorrect, tfAnswers);
-        quizSession.addQuestion(tfq);
-        quizSession.incrementNumQuestions();
-        makeToast(ADDED);
-
-
+       TrueFalseQuestion tfq = new TrueFalseQuestion(tfQuestion, tfCorrect, tfAnswers);
+       quizSession.addQuestion(tfq);
+       quizSession.incrementNumQuestions();
+       makeToast(ADDED);
     }
 
     // Adds a MultipleChoiceQuestion object to and updates the QuizSession object

@@ -88,7 +88,6 @@ public class MCAdderFragment extends Fragment {
 
     /*Returns true if all answer options have been set,
     *and a correct answer and question have been set.*/
-
     public boolean allFieldsValid() {
         boolean retVal = true;
         for (int i = 0; i < NUM_ANSWERS; i++) {

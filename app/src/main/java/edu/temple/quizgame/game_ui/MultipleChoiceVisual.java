@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-
 import java.util.ArrayList;
 
 import edu.temple.quizgame.R;
@@ -15,15 +14,11 @@ import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 
 
 /*This activity receives a Question object via Intent extra,
-
- * and uses it to set its UI elements.
- * It waits for user selection,
- * and reports it back to the calling activity.
- * It implements the OnClickListener interface for easy
- * event handling for the Buttons
- * */
-
-
+* and uses it to set its UI elements.
+* It waits for user selection,
+* and reports it back to the calling activity.
+* It implements the OnClickListener interface for easy
+* event handling for the Buttons*/
 public class MultipleChoiceVisual extends AppCompatActivity implements View.OnClickListener {
     private final int NUM_BUTTONS = 4;
 

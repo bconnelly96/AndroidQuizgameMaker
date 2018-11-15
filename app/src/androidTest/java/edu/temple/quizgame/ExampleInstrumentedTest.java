@@ -9,10 +9,6 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.util.ArrayList;
-<<<<<<< HEAD
-import java.util.Arrays;
-=======
->>>>>>> adder_frags
 
 import edu.temple.quizgame.database_mgmt.QuizReader;
 import edu.temple.quizgame.database_mgmt.QuizWriter;
@@ -38,8 +34,6 @@ public class ExampleInstrumentedTest {
 
         assertEquals("edu.temple.quizgame", appContext.getPackageName());
 
-<<<<<<< HEAD
-=======
         String filename = "text.txt";
 
         //Test 1 create, write, and read from a file
@@ -50,7 +44,6 @@ public class ExampleInstrumentedTest {
         ArrayList<String> file_contents = QuizReader.read_file(appContext,filename);
         assertEquals("writeToFile = true",file_contents.get(0));
 
->>>>>>> adder_frags
 
         //Test 2 create quiz and write to file
         QuizSession quiz = new QuizSession();
@@ -92,16 +85,6 @@ public class ExampleInstrumentedTest {
                 assertEquals(a1.get(j),a2.get(j));
                 }
         }
-<<<<<<< HEAD
-        quiz2.setQuizName("TestQuiz002");
-        QuizWriter.writeQuizToFile(appContext,quiz2,quiz2.getNumQuestions());
-
-        String dir = QuizReader.getQuizList(appContext);
-        assertTrue(dir.contains("TestQuiz001"));
-        assertTrue(dir.contains("TestQuiz002"));
-        QuizWriter.writeToFile(appContext,"list.txt", dir);
-=======
->>>>>>> adder_frags
 
 
 

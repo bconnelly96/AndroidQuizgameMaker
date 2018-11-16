@@ -71,7 +71,7 @@ public class MultipleChoiceVisual extends AppCompatActivity implements View.OnCl
     private void setElements() {
         qText.setText(mcQuestion.getQuestion());
         for (int i = 0; i < NUM_BUTTONS; i++) {
-            answers[i].setText(((ArrayList)mcQuestion.getAnswer()).get(i).toString());
+            answers[i].setText((mcQuestion.getAnswer()).get(i).toString());
             answers[i].setOnClickListener(this);
         }
     }

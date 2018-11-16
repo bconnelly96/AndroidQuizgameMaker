@@ -1,4 +1,4 @@
-package edu.temple.quizgame.game_ui;
+/*package edu.temple.quizgame.game_ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -31,5 +31,5 @@ public class QuizPicker extends AppCompatActivity {
                 quizStart.putExtra("selected_quiz", );
             }
         });
-}
+}*/
 

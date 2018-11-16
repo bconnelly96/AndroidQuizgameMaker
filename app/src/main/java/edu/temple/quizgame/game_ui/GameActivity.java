@@ -65,11 +65,12 @@ public class GameActivity extends AppCompatActivity {
                         if (tCorrect == (boolean) quizSession.quizQuestions.get(position).getCorrectAnswer()) {
                             numCorrectQuestions++;
                         }
-                    }
-                    else {
+                    } else {
                         String mCorrect = recIntent.getStringExtra("mc_answer");
-                        if (mCorrect.equals(quizSession.quizQuestions.get(position).getCorrectAnswer())) {
-                            numCorrectQuestions++;
+                        if (mCorrect != null) {
+                            if (mCorrect.equals(quizSession.quizQuestions.get(position).getCorrectAnswer())) {
+                                numCorrectQuestions++;
+                            }
                         }
                     }
                     numCompletedQuestions++;
@@ -81,6 +82,7 @@ public class GameActivity extends AppCompatActivity {
                     startActivity(doneIntent);
                 }
             }
+
         });
     }
 

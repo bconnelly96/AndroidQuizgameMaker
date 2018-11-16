@@ -3,6 +3,8 @@ package edu.temple.quizgame.game_ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import edu.temple.quizgame.R;
@@ -16,6 +18,7 @@ public class EndMenu extends AppCompatActivity {
         setContentView(R.layout.activity_end_menu);
 
         TextView etext;
+        Button button;
 
         int qNum;
         int cNum;
@@ -25,5 +28,12 @@ public class EndMenu extends AppCompatActivity {
         cNum = (int) recIntent.getIntExtra("num_Correct_Questions", 0);
         etext = findViewById(R.id.textView2);
         etext.setText("You got "+ cNum + "out of "+ qNum+ "correct.");
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }

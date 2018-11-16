@@ -97,7 +97,6 @@ public class QuizReader {
         ArrayList<String> quiz_text = read_file(context, quiz_name + ".dat");
         //Create arraylist for Question objects
         QuizSession quiz = new QuizSession();
-        Question curr;
         int n = 0;
         //Iterate through quiz to load questions and answers into memory
         for (int i = 2; i < quiz_text.size()-2; i += 3){
@@ -105,13 +104,11 @@ public class QuizReader {
             if (quiz_text.get(i+2).equals("true") || quiz_text.get(i+2).equals("false") ){
                 boolean tf;
                 tf = quiz_text.get(i + 1).equals("true");
-                curr = new TrueFalseQuestion(quiz_text.get(i),tf,answersToArrayList(quiz_text.get(i + 2)));
-                quiz.addQuestion(curr);
+                quiz.addQuestion(new TrueFalseQuestion(quiz_text.get(i),tf,answersToArrayList(quiz_text.get(i + 2))));
                 quiz.incrementNumQuestions();
             }
             else {
-                curr = new MultipleChoiceQuestion(quiz_text.get(i), quiz_text.get(i + 1), answersToArrayList(quiz_text.get(i + 2)));
-                quiz.addQuestion(curr);
+                quiz.addQuestion(new MultipleChoiceQuestion(quiz_text.get(i), quiz_text.get(i + 1), answersToArrayList(quiz_text.get(i + 2))));
                 quiz.incrementNumQuestions();
             }
         }

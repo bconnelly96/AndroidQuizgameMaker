@@ -68,8 +68,10 @@ public class GameActivity extends AppCompatActivity {
                     }
                     else {
                         String mCorrect = recIntent.getStringExtra("mc_answer");
-                        if (mCorrect.equals(quizSession.quizQuestions.get(position).getCorrectAnswer())) {
-                            numCorrectQuestions++;
+                        if (mCorrect != null) {
+                            if (mCorrect.equals(quizSession.quizQuestions.get(position).getCorrectAnswer())) {
+                                numCorrectQuestions++;
+                            }
                         }
                     }
                     numCompletedQuestions++;

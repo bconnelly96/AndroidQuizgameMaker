@@ -74,16 +74,19 @@ public class QuizReader {
         return file_content;
     }
 
-    public static String getQuizList(Context context){
+    public static ArrayList<String> getQuizList(Context context){
 
         File dir = new File(String.valueOf(context.getFilesDir()));
         String[] files = dir.list();
-        StringBuilder list = new StringBuilder();
-        for (int i = 0; i < files.length; i++){
-            list.append(files[i].substring(0,files[i].length()-4)).append("\n"); //-4 = ".dat"
+        ArrayList<String> list = new  ArrayList<>();
+        for (String file : files) {
+            if (file.endsWith(".dat")) {
+                list.add(file.substring(0, file.length() - 4)); //-4 = ".dat"
+            }
         }
 
-        return list.toString();
+
+        return list;
     }
 
 

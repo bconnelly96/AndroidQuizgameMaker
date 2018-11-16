@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import edu.temple.quizgame.database_mgmt.QuizReader;
 import edu.temple.quizgame.database_mgmt.QuizWriter;
@@ -85,6 +86,9 @@ public class ExampleInstrumentedTest {
                 assertEquals(a1.get(j),a2.get(j));
                 }
         }
+        String[] dir = QuizReader.getQuizList(appContext);
+        assertEquals(dir[0],"Joshee.dat");
+        QuizWriter.writeToFile(appContext,"list.txt", Arrays.toString(dir));
 
 
 

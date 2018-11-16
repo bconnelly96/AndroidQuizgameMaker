@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         playGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent playIntent = new Intent(MainActivity.this, GameActivity.class);
+                Intent playIntent = new Intent(MainActivity.this, QuizPicker.class);
                 startActivity(playIntent);
             }
         });

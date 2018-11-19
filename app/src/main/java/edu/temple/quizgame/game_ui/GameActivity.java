@@ -9,11 +9,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import edu.temple.quizgame.R;
+import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 import edu.temple.quizgame.game_logic.Question;
 import edu.temple.quizgame.game_logic.QuizSession;
 import edu.temple.quizgame.game_logic.TrueFalseQuestion;
-
-//TODO: note code will not compile until quizSession can be loaded from memory
 
 public class GameActivity extends AppCompatActivity {
     QuizSession quizSession;
@@ -23,13 +22,14 @@ public class GameActivity extends AppCompatActivity {
     int numCompletedQuestions = 0;
     int numCorrectQuestions = 0;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //TODO: load quizSession here, before setting adapter
+        // Bring quizSession object from QuizPicker activity into memory
+        Intent qsIntent = getIntent();
+        quizSession = (QuizSession) qsIntent.getSerializableExtra("selected_quiz");
 
         questionList = findViewById(R.id.q_select_list);
         QListAdapter adapter = new QListAdapter(this, listContents());
@@ -38,15 +38,51 @@ public class GameActivity extends AppCompatActivity {
         questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                /*quizQuestions indices align with position values in questionList,
+                *i.e. questionList[0] references the question String found in quizQuestions[0]*/
                 Question question = quizSession.quizQuestions.get(position);
-                if (question instanceof TrueFalseQuestion) {
-                    TrueFalseQuestion temp = (TrueFalseQuestion) question;
-                    //start TrueFalseVisual activity
+                // if there are still open questions
+                if (numCompletedQuestions < quizSession.numQuestions) {
+                    Intent intent;
+                    // if the selected question is T/F
+                    if (question instanceof TrueFalseQuestion) {
+                        TrueFalseQuestion tQuestion = (TrueFalseQuestion) question;
+                        intent = new Intent(GameActivity.this, TrueFalseVisual.class);
+                        intent.putExtra("tf_obj", tQuestion);
+                        startActivity(intent);
+                    // if the selected question is MC
+                    } else {
+                        MultipleChoiceQuestion mQuestion = (MultipleChoiceQuestion) question;
+                        intent = new Intent(GameActivity.this, MultipleChoiceVisual.class);
+                        intent.putExtra("mc_obj", mQuestion);
+                        startActivity(intent);
+                    }
+                    /*receive the user's selected value via extra data;
+                    *adjust number of correct answers and completed questions accordingly*/
+                    Intent recIntent = getIntent();
+                    if (question instanceof TrueFalseQuestion) {
+                        boolean tCorrect = recIntent.getBooleanExtra("tf_answer", false);
+                        if (tCorrect == (boolean) quizSession.quizQuestions.get(position).getCorrectAnswer()) {
+                            numCorrectQuestions++;
+                        }
+                    } else {
+                        String mCorrect = recIntent.getStringExtra("mc_answer");
+                        if (mCorrect != null) {
+                            if (mCorrect.equals(quizSession.quizQuestions.get(position).getCorrectAnswer())) {
+                                numCorrectQuestions++;
+                            }
+                        }
+                    }
+                    numCompletedQuestions++;
+                // when all questions have been answered, display an end menu
                 } else {
-
+                    Intent doneIntent = new Intent(GameActivity.this, EndMenu.class);
+                    doneIntent.putExtra("num_Correct_Questions", numCorrectQuestions);
+                    doneIntent.putExtra("num_Questions", quizSession.numQuestions);
+                    startActivity(doneIntent);
                 }
-
             }
+
         });
     }
 

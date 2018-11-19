@@ -6,32 +6,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-<<<<<<< HEAD
-=======
 
 import java.util.ArrayList;
->>>>>>> 89967b2256daa42217b38e4e46743f2387d729c0
+
+import java.util.ArrayList;
 
 import edu.temple.quizgame.R;
 import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 
 
 /*This activity receives a Question object via Intent extra,
-<<<<<<< HEAD
-* and uses it to set its UI elements.
-* It waits for user selection,
-* and reports it back to the calling activity.
-* It implements the OnClickListener interface for easy
-* event handling for the Buttons
-* */
-=======
  * and uses it to set its UI elements.
  * It waits for user selection,
  * and reports it back to the calling activity.
  * It implements the OnClickListener interface for easy
  * event handling for the Buttons
- * */
->>>>>>> 89967b2256daa42217b38e4e46743f2387d729c0
+ */
 public class MultipleChoiceVisual extends AppCompatActivity implements View.OnClickListener {
     private final int NUM_BUTTONS = 4;
 
@@ -84,7 +74,7 @@ public class MultipleChoiceVisual extends AppCompatActivity implements View.OnCl
     private void setElements() {
         qText.setText(mcQuestion.getQuestion());
         for (int i = 0; i < NUM_BUTTONS; i++) {
-            answers[i].setText(((ArrayList)mcQuestion.getAnswer()).get(i).toString());
+            answers[i].setText((mcQuestion.getAnswer()).get(i).toString());
             answers[i].setOnClickListener(this);
         }
     }

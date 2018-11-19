@@ -16,10 +16,10 @@ public class Question<T> implements Serializable {
     // Represents the correct answer for a given question
     private T correctAnswer;
     // Each instance of Question has a list of possible answers
-    private T answer;
+    private ArrayList<T> answer;
 
     // public constructor initializes Question object's fields
-    public Question(String question, T correctAnswer, T answer) {
+    public Question(String question, T correctAnswer, ArrayList<T> answer) {
         this.question = question;
         this.correctAnswer = correctAnswer;
         this.answer = answer;
@@ -38,7 +38,7 @@ public class Question<T> implements Serializable {
     public void setCorrectAnswer(T correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
-    public T getAnswer() {
+    public ArrayList<T> getAnswer() {
         return answer;
     }
 

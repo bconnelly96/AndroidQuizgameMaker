@@ -54,13 +54,8 @@ public class TrueFalseVisual extends AppCompatActivity {
     }
 
     /*Creates a new Intent.
-<<<<<<< HEAD
     *Sends user's selected answer back to original starting activity via Extra.
     *Starts starting activity.*/
-=======
-     *Sends user's selected answer back to original starting activity via Extra.
-     *Starts starting activity.*/
->>>>>>> 89967b2256daa42217b38e4e46743f2387d729c0
     private void reportAndStart() {
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("tf_answer", selectedAnswer);

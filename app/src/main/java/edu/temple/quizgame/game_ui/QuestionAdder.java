@@ -6,14 +6,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import edu.temple.quizgame.R;
+import edu.temple.quizgame.database_mgmt.QuizWriter;
 import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
 import edu.temple.quizgame.game_logic.QuizSession;
 import edu.temple.quizgame.game_logic.TrueFalseQuestion;
@@ -120,6 +123,15 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
                         if (tFrag.allFieldsValid()) {
                             addTFToQuiz();
                             quizSession.setQuizName(quizName.getText().toString());
+
+                            //Code added by Joshee
+                            try {
+                                QuizWriter.writeQuizToFile(getApplicationContext(),quizSession,quizSession.getNumQuestions());
+                            } catch (IOException e) {
+                                Log.e(QuizWriter.TAG,e.toString());
+                            }
+                            //End code added by Joshee
+
                             makeToast(CREATED);
                             Intent intent = new Intent(QuestionAdder.this, MainActivity.class);
                             startActivity(intent);
@@ -135,6 +147,15 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
                         if (mFrag.allFieldsValid()) {
                             addMCToQuiz();
                             quizSession.setQuizName(quizName.getText().toString());
+
+                            //Code added by Joshee
+                            try {
+                                QuizWriter.writeQuizToFile(getApplicationContext(),quizSession,quizSession.getNumQuestions());
+                            } catch (IOException e) {
+                                Log.e(QuizWriter.TAG,e.toString());
+                            }
+                            //End code added by Joshee
+
                             makeToast(CREATED);
                             Intent intent = new Intent(QuestionAdder.this, MainActivity.class);
                             startActivity(intent);

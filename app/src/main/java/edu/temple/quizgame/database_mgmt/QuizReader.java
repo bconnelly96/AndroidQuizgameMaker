@@ -6,6 +6,11 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -69,6 +74,21 @@ public class QuizReader {
         return file_content;
     }
 
+    public static ArrayList<String> getQuizList(Context context){
+
+        File dir = new File(String.valueOf(context.getFilesDir()));
+        String[] files = dir.list();
+        ArrayList<String> list = new  ArrayList<>();
+        for (String file : files) {
+            if (file.endsWith(".dat")) {
+                list.add(file.substring(0, file.length() - 4)); //-4 = ".dat"
+            }
+        }
+
+
+        return list;
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static QuizSession getQuiz(Context context, String quiz_name)  {
@@ -77,7 +97,6 @@ public class QuizReader {
         ArrayList<String> quiz_text = read_file(context, quiz_name + ".dat");
         //Create arraylist for Question objects
         QuizSession quiz = new QuizSession();
-        Question curr;
         int n = 0;
         //Iterate through quiz to load questions and answers into memory
         for (int i = 2; i < quiz_text.size()-2; i += 3){
@@ -85,13 +104,11 @@ public class QuizReader {
             if (quiz_text.get(i+2).equals("true") || quiz_text.get(i+2).equals("false") ){
                 boolean tf;
                 tf = quiz_text.get(i + 1).equals("true");
-                curr = new TrueFalseQuestion(quiz_text.get(i),tf,answersToArrayList(quiz_text.get(i + 2)));
-                quiz.addQuestion(curr);
+                quiz.addQuestion(new TrueFalseQuestion(quiz_text.get(i),tf,answersToArrayList(quiz_text.get(i + 2))));
                 quiz.incrementNumQuestions();
             }
             else {
-                curr = new MultipleChoiceQuestion(quiz_text.get(i), quiz_text.get(i + 1), answersToArrayList(quiz_text.get(i + 2)));
-                quiz.addQuestion(curr);
+                quiz.addQuestion(new MultipleChoiceQuestion(quiz_text.get(i), quiz_text.get(i + 1), answersToArrayList(quiz_text.get(i + 2))));
                 quiz.incrementNumQuestions();
             }
         }

@@ -50,7 +50,7 @@ public class GameActivity extends AppCompatActivity {
                         intent = new Intent(GameActivity.this, TrueFalseVisual.class);
                         intent.putExtra("tf_obj", tQuestion);
                         startActivity(intent);
-                    // if the selected question is MC
+                        // if the selected question is MC
                     } else {
                         MultipleChoiceQuestion mQuestion = (MultipleChoiceQuestion) question;
                         intent = new Intent(GameActivity.this, MultipleChoiceVisual.class);
@@ -58,18 +58,18 @@ public class GameActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                     /*receive the user's selected value via extra data;
-                    *adjust number of correct answers and completed questions accordingly*/
+                     *adjust number of correct answers and completed questions accordingly*/
                     Intent recIntent = getIntent();
                     if (question instanceof TrueFalseQuestion) {
                         boolean tCorrect = recIntent.getBooleanExtra("tf_answer", false);
                         if (tCorrect == (boolean) quizSession.quizQuestions.get(position).getCorrectAnswer()) {
                             numCorrectQuestions++;
-                        }
-                    } else {
-                        String mCorrect = recIntent.getStringExtra("mc_answer");
-                        if (mCorrect != null) {
-                            if (mCorrect.equals(quizSession.quizQuestions.get(position).getCorrectAnswer())) {
-                                numCorrectQuestions++;
+                        } else {
+                            String mCorrect = recIntent.getStringExtra("mc_answer");
+                            if (mCorrect != null) {
+                                if (mCorrect.equals(quizSession.quizQuestions.get(position).getCorrectAnswer())) {
+                                    numCorrectQuestions++;
+                                }
                             }
                         }
                     }

@@ -14,7 +14,7 @@ import edu.temple.quizgame.game_logic.TrueFalseQuestion;
 
 
 public class QuizWriter {
-    private static final String TAG = "QuizWriter";
+    public static final String TAG = "QuizWriter";
     /*NOTE* Since one quiz can be worked on at time, quizzes should be loaded into some data structure
            for data manipulation. SOLVED see QuizSession.java
            QuizReader.getQuiz() should be the only method that can retrieve a quiz from the quiz data file.

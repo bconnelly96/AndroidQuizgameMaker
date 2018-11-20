@@ -101,7 +101,7 @@ public class QuizReader {
         //Iterate through quiz to load questions and answers into memory
         for (int i = 2; i < quiz_text.size()-2; i += 3){
             //check for True/False question
-            if (quiz_text.get(i+2).equals("true") || quiz_text.get(i+2).equals("false") ){
+            if (quiz_text.get(i+1).equals("true") || quiz_text.get(i+1).equals("false") ){
                 boolean tf;
                 tf = quiz_text.get(i + 1).equals("true");
                 quiz.addQuestion(new TrueFalseQuestion(quiz_text.get(i),tf,answersToArrayList(quiz_text.get(i + 2))));

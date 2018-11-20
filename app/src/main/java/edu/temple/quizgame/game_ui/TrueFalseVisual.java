@@ -24,7 +24,7 @@ public class TrueFalseVisual extends AppCompatActivity {
     RadioGroup radioGroup;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_true_false_visual);
 
@@ -50,6 +50,7 @@ public class TrueFalseVisual extends AppCompatActivity {
                 }
                 reportAndStart();
             }
+
         });
     }
 

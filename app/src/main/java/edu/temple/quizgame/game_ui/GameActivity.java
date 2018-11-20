@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import edu.temple.quizgame.R;
 import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
@@ -29,10 +31,17 @@ public class GameActivity extends AppCompatActivity {
 
         // Bring quizSession object from QuizPicker activity into memory
         Intent qsIntent = getIntent();
-        quizSession = (QuizSession) qsIntent.getSerializableExtra("selected_quiz");
+        final QuizSession quizSession = (QuizSession) qsIntent.getSerializableExtra("selected_quiz");
+        if(quizSession == null){
+            System.out.println("ERROR");
+        }
+        String [] lContents = new String[quizSession.numQuestions];
+        for (int i = 0; i < quizSession.numQuestions; i++) {
+            lContents[i] = quizSession.quizQuestions.get(i).getQuestion();
+        }
 
         questionList = findViewById(R.id.q_select_list);
-        QListAdapter adapter = new QListAdapter(this, listContents());
+        QListAdapter adapter = new QListAdapter(this, lContents);
         questionList.setAdapter(adapter);
 
         questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,15 +94,14 @@ public class GameActivity extends AppCompatActivity {
 
         });
     }
-
     /*Returns a String array, where each index contains
     *the questions from the Question objects found in the ArrayList
     *quizQuestions in GameActivity's quizSession object*/
-    private String[] listContents() {
+  /*  private String[] listContents() {
         String [] lContents = new String[quizSession.numQuestions];
         for (int i = 0; i < quizSession.numQuestions; i++) {
             lContents[i] = quizSession.quizQuestions.get(i).getQuestion();
         }
         return lContents;
-    }
+    }*/
 }

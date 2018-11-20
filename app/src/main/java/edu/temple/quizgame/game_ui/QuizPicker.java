@@ -27,7 +27,6 @@ public class QuizPicker extends AppCompatActivity {
         ListView quizList = findViewById(R.id.list_of_quizzes);
         quizList.setAdapter(adapter);
 
-
         quizList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override

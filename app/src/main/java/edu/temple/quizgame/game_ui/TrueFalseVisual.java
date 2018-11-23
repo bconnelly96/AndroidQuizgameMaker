@@ -1,5 +1,6 @@
 package edu.temple.quizgame.game_ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,8 +59,18 @@ public class TrueFalseVisual extends AppCompatActivity {
     *Sends user's selected answer back to original starting activity via Extra.
     *Starts starting activity.*/
     private void reportAndStart() {
-        Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent();
+
+
+        if (selectedAnswer == (boolean) tfQuestion.getCorrectAnswer()){ //true
+            setResult(RESULT_OK,intent);
+        }
+        else {
+            setResult(1,intent);
+        }
+
         intent.putExtra("tf_answer", selectedAnswer);
-        startActivity(intent);
+
+        finish();
     }
 }

@@ -22,7 +22,7 @@ public class EndMenu extends AppCompatActivity {
 
         Intent recIntent = getIntent();
         qNum = recIntent.getIntExtra("num_Questions", 0);
-        cNum = (int) recIntent.getIntExtra("num_Correct_Questions", 0);
+        cNum = recIntent.getIntExtra("num_Correct_Questions", 0);
         etext = findViewById(R.id.textView2);
         etext.setText("You got "+ cNum + "out of "+ qNum+ "correct.");
     }

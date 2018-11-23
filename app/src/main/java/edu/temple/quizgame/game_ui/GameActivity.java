@@ -23,6 +23,7 @@ public class GameActivity extends AppCompatActivity {
 
     int numCompletedQuestions = 0;
     int numCorrectQuestions = 0;
+    int REQUST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         // Bring quizSession object from QuizPicker activity into memory
-        Intent qsIntent = getIntent();
+        final Intent qsIntent = getIntent();
         final QuizSession quizSession = (QuizSession) qsIntent.getSerializableExtra("selected_quiz");
         if(quizSession == null){
             System.out.println("ERROR");
@@ -48,7 +49,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 /*quizQuestions indices align with position values in questionList,
-                *i.e. questionList[0] references the question String found in quizQuestions[0]*/
+                 *i.e. questionList[0] references the question String found in quizQuestions[0]*/
                 Question question = quizSession.quizQuestions.get(position);
                 // if there are still open questions
                 if (numCompletedQuestions < quizSession.numQuestions) {
@@ -58,33 +59,16 @@ public class GameActivity extends AppCompatActivity {
                         TrueFalseQuestion tQuestion = (TrueFalseQuestion) question;
                         intent = new Intent(GameActivity.this, TrueFalseVisual.class);
                         intent.putExtra("tf_obj", tQuestion);
-                        startActivity(intent);
-                    // if the selected question is MC
+                        startActivityForResult(intent,REQUST_CODE);
+                        // if the selected question is MC
                     } else {
                         MultipleChoiceQuestion mQuestion = (MultipleChoiceQuestion) question;
                         intent = new Intent(GameActivity.this, MultipleChoiceVisual.class);
                         intent.putExtra("mc_obj", mQuestion);
-                        startActivity(intent);
+                        startActivityForResult(intent,REQUST_CODE);
                     }
-                    /*receive the user's selected value via extra data;
-                    *adjust number of correct answers and completed questions accordingly*/
-                    Intent recIntent = getIntent();
-                    if (question instanceof TrueFalseQuestion) {
-                        boolean tCorrect = recIntent.getBooleanExtra("tf_answer", false);
-                        if (tCorrect == (boolean) quizSession.quizQuestions.get(position).getCorrectAnswer()) {
-                            numCorrectQuestions++;
-                        }
-                    }
-                    else {
-                        String mCorrect = recIntent.getStringExtra("mc_answer");
-                        if (mCorrect != null) {
-                            if (mCorrect.equals(quizSession.quizQuestions.get(position).getCorrectAnswer())) {
-                                numCorrectQuestions++;
-                            }
-                        }
-                    }
-                    numCompletedQuestions++;
-                // when all questions have been answered, display an end menu
+
+                    // when all questions have been answered, display an end menu
                 } else {
                     Intent doneIntent = new Intent(GameActivity.this, EndMenu.class);
                     doneIntent.putExtra("num_Correct_Questions", numCorrectQuestions);
@@ -93,6 +77,19 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent recIntent) {
+        if (requestCode == REQUST_CODE) {
+            // Check answer
+            if (resultCode == RESULT_OK) { //true
+                numCorrectQuestions++;
+            }
+        }
+        numCompletedQuestions++;
+
     }
     /*Returns a String array, where each index contains
     *the questions from the Question objects found in the ArrayList

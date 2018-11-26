@@ -1,11 +1,10 @@
 package edu.temple.quizgame.game_ui;
 
 import android.content.Intent;
-import android.nfc.NfcAdapter;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -44,10 +43,10 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
     QuizSession quizSession = new QuizSession();
     private String mcQuestion;
     private String mcCorrect;
-    private ArrayList mcAnswers = new ArrayList();
+    private ArrayList<String> mcAnswers = new ArrayList<>();
     private String tfQuestion;
     private boolean tfCorrect;
-    private ArrayList tfAnswers = new ArrayList();
+    private ArrayList<Boolean> tfAnswers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +67,7 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
         tfAnswers.add(0, true);
         tfAnswers.add(1, false);
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
                 viewPager.setCurrentItem(viewPager.getCurrentItem());

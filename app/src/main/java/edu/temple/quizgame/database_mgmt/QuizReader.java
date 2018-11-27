@@ -10,15 +10,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
-import edu.temple.quizgame.game_logic.Question;
 import edu.temple.quizgame.game_logic.QuizSession;
 import edu.temple.quizgame.game_logic.TrueFalseQuestion;
 

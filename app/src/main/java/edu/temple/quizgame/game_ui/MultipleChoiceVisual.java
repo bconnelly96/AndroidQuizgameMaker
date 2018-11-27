@@ -1,8 +1,8 @@
 package edu.temple.quizgame.game_ui;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -83,8 +83,18 @@ public class MultipleChoiceVisual extends AppCompatActivity implements View.OnCl
      *Sends user's selected answer back to original starting activity via Extra.
      *Starts starting activity.*/
     void reportAndStart() {
-        Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent();
+
+
+        if (selectedAnswer.equals(mcQuestion.getCorrectAnswer())){ //true
+            setResult(RESULT_OK,intent);
+        }
+        else {
+            setResult(1,intent);
+        }
+
         intent.putExtra("mc_answer", selectedAnswer);
-        startActivity(intent);
+
+        finish();
     }
 }

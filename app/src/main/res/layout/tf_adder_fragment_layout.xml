@@ -19,7 +19,9 @@
         android:ems="10"
         android:hint="@string/enter_question"
         android:inputType="textPersonName"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
@@ -49,7 +51,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/true_string"
-            android:textSize="30sp" />
+            android:textColor="@android:color/holo_purple"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioButton6"
@@ -57,6 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/false_string"
-            android:textSize="30sp" />
+            android:textColor="@android:color/holo_purple"
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </RadioGroup>
 </android.support.constraint.ConstraintLayout>

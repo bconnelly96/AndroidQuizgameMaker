@@ -33,7 +33,9 @@
                 android:ems="10"
                 android:hint="@string/answer_1"
                 android:inputType="textPersonName"
-                android:textSize="24sp" />
+                android:textColor="@android:color/holo_purple"
+                android:textSize="24sp"
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow
@@ -47,7 +49,9 @@
                 android:ems="10"
                 android:hint="@string/answer_2"
                 android:inputType="textPersonName"
-                android:textSize="24sp" />
+                android:textColor="@android:color/holo_purple"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
         </TableRow>
 
@@ -62,7 +66,9 @@
                 android:ems="10"
                 android:hint="@string/answer_3"
                 android:inputType="textPersonName"
-                android:textSize="24sp" />
+                android:textColor="@android:color/holo_purple"
+                android:textSize="24sp"
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow
@@ -76,7 +82,9 @@
                 android:ems="10"
                 android:hint="@string/answer_4"
                 android:inputType="textPersonName"
-                android:textSize="24sp" />
+                android:textColor="@android:color/holo_purple"
+                android:textSize="24sp"
+                android:textStyle="bold" />
         </TableRow>
 
     </TableLayout>
@@ -137,7 +145,9 @@
         android:ems="10"
         android:hint="@string/enter_question"
         android:inputType="textPersonName"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"

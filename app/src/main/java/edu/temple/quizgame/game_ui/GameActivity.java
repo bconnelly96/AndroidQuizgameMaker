@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import edu.temple.quizgame.R;
 import edu.temple.quizgame.game_logic.MultipleChoiceQuestion;
@@ -45,22 +46,29 @@ public class GameActivity extends AppCompatActivity {
         questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*quizQuestions indices align with position values in questionList,
-                 *i.e. questionList[0] references the question String found in quizQuestions[0]*/
-                Question question = quizSession.quizQuestions.get(position);
-                Intent intent;
-                // if the selected question is T/F
-                if (question instanceof TrueFalseQuestion) {
-                    TrueFalseQuestion tQuestion = (TrueFalseQuestion) question;
-                    intent = new Intent(GameActivity.this, TrueFalseVisual.class);
-                    intent.putExtra("tf_obj", tQuestion);
-                    startActivityForResult(intent,REQUST_CODE);
-                    // if the selected question is MC
+                if (numCompletedQuestions < numQuestions) {
+                    /*quizQuestions indices align with position values in questionList,
+                     *i.e. questionList[0] references the question String found in quizQuestions[0]*/
+                    Question question = quizSession.quizQuestions.get(position);
+                    Intent intent;
+                    // if the selected question is T/F
+                    if (question instanceof TrueFalseQuestion) {
+                        TrueFalseQuestion tQuestion = (TrueFalseQuestion) question;
+                        intent = new Intent(GameActivity.this, TrueFalseVisual.class);
+                        intent.putExtra("tf_obj", tQuestion);
+                        startActivityForResult(intent, REQUST_CODE);
+                        // if the selected question is MC
+                    } else {
+                        MultipleChoiceQuestion mQuestion = (MultipleChoiceQuestion) question;
+                        intent = new Intent(GameActivity.this, MultipleChoiceVisual.class);
+                        intent.putExtra("mc_obj", mQuestion);
+                        startActivityForResult(intent, REQUST_CODE);
+                    }
                 } else {
-                    MultipleChoiceQuestion mQuestion = (MultipleChoiceQuestion) question;
-                    intent = new Intent(GameActivity.this, MultipleChoiceVisual.class);
-                    intent.putExtra("mc_obj", mQuestion);
-                    startActivityForResult(intent,REQUST_CODE);
+                    Intent endIntent = new Intent(GameActivity.this, EndMenu.class);
+                    endIntent.putExtra("num_Questions", numCompletedQuestions);
+                    endIntent.putExtra("num_Correct_Questions", numCorrectQuestions);
+                    startActivity(endIntent);
                 }
             }
         });
@@ -71,7 +79,11 @@ public class GameActivity extends AppCompatActivity {
         if (requestCode == REQUST_CODE) {
             // Check answer
             if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Your Answer Was Correct", Toast.LENGTH_SHORT).show();
                 numCorrectQuestions++;
+            } else {
+
+                Toast.makeText(this, "Your Answer Was Incorrect", Toast.LENGTH_SHORT).show();
             }
         }
         numCompletedQuestions++;

@@ -21,6 +21,7 @@ public class GameActivity extends AppCompatActivity {
     int numCompletedQuestions = 0;
     int numCorrectQuestions = 0;
     int REQUST_CODE = 1;
+    boolean [] answered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
         if(quizSession != null){
             numQuestions = quizSession.numQuestions;
         }
+        answered = new boolean[numQuestions];
 
         String [] lContents = new String[quizSession.numQuestions];
         for (int i = 0; i < quizSession.numQuestions; i++) {
@@ -46,33 +48,41 @@ public class GameActivity extends AppCompatActivity {
         questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (numCompletedQuestions < numQuestions) {
-                    /*quizQuestions indices align with position values in questionList,
-                     *i.e. questionList[0] references the question String found in quizQuestions[0]*/
-                    Question question = quizSession.quizQuestions.get(position);
-                    Intent intent;
-                    // if the selected question is T/F
-                    if (question instanceof TrueFalseQuestion) {
-                        TrueFalseQuestion tQuestion = (TrueFalseQuestion) question;
-                        intent = new Intent(GameActivity.this, TrueFalseVisual.class);
-                        intent.putExtra("tf_obj", tQuestion);
-                        startActivityForResult(intent, REQUST_CODE);
-                        // if the selected question is MC
-                    } else {
-                        MultipleChoiceQuestion mQuestion = (MultipleChoiceQuestion) question;
-                        intent = new Intent(GameActivity.this, MultipleChoiceVisual.class);
-                        intent.putExtra("mc_obj", mQuestion);
-                        startActivityForResult(intent, REQUST_CODE);
+                    if (answered[position] != true) {
+                        /*quizQuestions indices align with position values in questionList,
+                         *i.e. questionList[0] references the question String found in quizQuestions[0]*/
+                        Question question = quizSession.quizQuestions.get(position);
+                        Intent intent;
+                        // if the selected question is T/F
+                        if (question instanceof TrueFalseQuestion) {
+                            TrueFalseQuestion tQuestion = (TrueFalseQuestion) question;
+                            intent = new Intent(GameActivity.this, TrueFalseVisual.class);
+                            intent.putExtra("tf_obj", tQuestion);
+                            startActivityForResult(intent, REQUST_CODE);
+                            // if the selected question is MC
+                        } else {
+                            MultipleChoiceQuestion mQuestion = (MultipleChoiceQuestion) question;
+                            intent = new Intent(GameActivity.this, MultipleChoiceVisual.class);
+                            intent.putExtra("mc_obj", mQuestion);
+                            startActivityForResult(intent, REQUST_CODE);
+                        }
+                        answered[position] = true;
                     }
-                } else {
-                    Intent endIntent = new Intent(GameActivity.this, EndMenu.class);
-                    endIntent.putExtra("num_Questions", numCompletedQuestions);
-                    endIntent.putExtra("num_Correct_Questions", numCorrectQuestions);
-                    startActivity(endIntent);
-                }
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (numCompletedQuestions == numQuestions){
+            Intent doneIntent = new Intent(GameActivity.this, EndMenu.class);
+            doneIntent.putExtra("num_Correct_Questions", numCorrectQuestions);
+            doneIntent.putExtra("num_Questions", numQuestions);
+            startActivity(doneIntent);
+        }
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent recIntent) {

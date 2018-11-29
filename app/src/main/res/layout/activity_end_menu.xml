@@ -31,7 +31,7 @@
         android:layout_marginRight="148dp"
         android:layout_marginStart="148dp"
         android:layout_marginTop="112dp"
-        android:background="@android:color/holo_purple"
+        android:background="@android:color/holo_red_light"
         android:text="Main Menu"
         android:textColor="@android:color/background_light"
         android:textStyle="bold"

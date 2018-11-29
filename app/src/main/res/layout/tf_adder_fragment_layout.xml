@@ -51,9 +51,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/true_string"
-            android:textColor="@android:color/holo_purple"
+            android:textColor="@android:color/holo_red_light"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:buttonTint="@android:color/holo_red_light" />
 
         <RadioButton
             android:id="@+id/radioButton6"
@@ -61,8 +62,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/false_string"
-            android:textColor="@android:color/holo_purple"
+            android:textColor="@android:color/holo_red_light"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:buttonTint="@android:color/holo_red_light" />
     </RadioGroup>
 </android.support.constraint.ConstraintLayout>

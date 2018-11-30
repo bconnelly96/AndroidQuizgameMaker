@@ -31,7 +31,6 @@ import edu.temple.quizgame.game_logic.TrueFalseQuestion;
 *It builds the QuizSession object to be saved to the user's device when
 *the done Button is clicked.
 */
-//TODO: save the quiz to the device when the done button is clicked
 public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.TFInterface, MCAdderFragment.MCInterface {
     private final String ADDED = "Question Added to Quiz";
     private final String INVALID = "One or More Fields is Invalid";
@@ -43,7 +42,7 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
     QuizSession quizSession = new QuizSession();
     private String mcQuestion;
     private String mcCorrect;
-    private ArrayList<String> mcAnswers = new ArrayList<>();
+    private ArrayList<String> mcAnswers;
     private String tfQuestion;
     private boolean tfCorrect;
     private ArrayList<Boolean> tfAnswers = new ArrayList<>();
@@ -176,6 +175,7 @@ public class QuestionAdder extends AppCompatActivity implements TFAdderFragment.
     }
     @Override
     public void sendMCAnswers(String[] answers) {
+        mcAnswers = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             mcAnswers.add(i, answers[i]);
         }

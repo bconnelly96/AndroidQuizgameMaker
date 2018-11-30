@@ -9,5 +9,5 @@
         android:layout_height="49dp"
         android:text=""
         android:textColor="@color/colorPrimary"
-        android:textSize="24sp" />
+        android:textSize="18sp" />
 </LinearLayout>
